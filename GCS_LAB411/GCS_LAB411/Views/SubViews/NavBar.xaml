@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GCS_LAB411.Views.SubViews.NavBar">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="image-style" TargetType="ImageButton">
+                <Setter Property="WidthRequest" Value="35"/>
+                <Setter Property="HeightRequest" Value="35"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid ColumnSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <BoxView Color="#1C1C1D" Opacity="0.7" Grid.Column="0" Grid.RowSpan="1"/>
+            <BoxView Color="#1C1C1D" Opacity="0.7" Grid.Column="1" Grid.RowSpan="1"/>
+            <StackLayout Grid.Column="1" Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" Margin="0,0,50,0">
+                    <Ellipse WidthRequest="30" HeightRequest="30" Fill="Red" Margin="5"/>
+                    <Label Text="LINK" TextColor="White" FontSize="Medium" VerticalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Image Source="batterystatus.png" BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
+                    <Label Text="54%" TextColor="White" FontSize="Medium" VerticalOptions="Center" Margin="0,0,25,0"/>
+                    <Label Text="AUTO" TextColor="White" FontSize="Medium" VerticalOptions="Center" Margin="0,0,25,0"/>
+                    <Label Text="ARMED" TextColor="White" FontSize="Medium" VerticalOptions="Center" Margin="0,0,25,0"/>
+                </StackLayout>
+            </StackLayout>
+            
+            <StackLayout Grid.Column="0" Orientation="Horizontal">
+                <ImageButton Source="logo411.png"
+                             BackgroundColor="#F6F6F6"
+                             Style="{StaticResource image-style}"
+                             Margin="0,0,25,0"/>
+
+                <ImageButton Source="flyto.png"
+                             BackgroundColor="Transparent"
+                             Style="{StaticResource image-style}"
+                             Margin="0,0,25,0"
+                             Command="{Binding AddWayPointCommand}"/>
+
+                <ImageButton Source="waypoint.png"
+                             BackgroundColor="Transparent"
+                             Style="{StaticResource image-style}"
+                             Margin="0,0,25,0"/>
+
+            </StackLayout>
+
+        </Grid>
+    </ContentView.Content>
+</ContentView>
