@@ -10,9 +10,15 @@
     </ContentPage.BindingContext>
 
     <Grid>
-
-        <subviews:NavBar HeightRequest="40" VerticalOptions="StartAndExpand">
-        </subviews:NavBar>
+        <!--Navbar view-->
+        <subviews:NavBar HeightRequest="40" VerticalOptions="StartAndExpand"/>
+        
+        <!--Telemetry box view-->
+        <subviews:TelemetryBox HeightRequest="160" 
+                               WidthRequest="150" 
+                               VerticalOptions="End" 
+                               HorizontalOptions="End"
+                               Margin="36"/>
     </Grid>
 
 </ContentPage>

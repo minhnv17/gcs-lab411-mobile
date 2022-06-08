@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GCS_LAB411.Views.SubViews.TelemetryBox">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="lable-style" TargetType="Label">
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Frame>
+            <StackLayout Orientation="Vertical">
+                <Frame HeightRequest="21" Padding="0">
+                    <Label Text="Telemetry" TextColor="Black" FontSize="12" Style="{StaticResource lable-style}"/>
+                </Frame>
+                <ScrollView VerticalOptions="FillAndExpand">
+                    <StackLayout Orientation="Vertical">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                            <Label Text="GPS/Position Status: " Style="{StaticResource lable-style}"/>
+                            <Label Text="{Binding Attitude}" Style="{StaticResource lable-style}"/>
+                        </StackLayout>
+                        <Label Text="Attitude(m)" Style="{StaticResource lable-style}"/>
+                        <Label Text="0.25" Style="{StaticResource lable-style}"/>
+                        <Label Text="GroundSpeed(m/s)" Style="{StaticResource lable-style}"/>
+                        <Label Text="{Binding Attitude}" Style="{StaticResource lable-style}"/>
+                        <Label Text="PositionX(m)" Style="{StaticResource lable-style}"/>
+                        <Label Text="{Binding Attitude}" Style="{StaticResource lable-style}"/>
+                        <Label Text="PositionY(m)" Style="{StaticResource lable-style}"/>
+                        <Label Text="{Binding Attitude}" Style="{StaticResource lable-style}"/>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+
+
+            <Frame.Style>
+                <Style TargetType="Frame">
+                    <Setter Property="BackgroundColor" Value="White"/>
+                    <Setter Property="Padding" Value="1"/>
+                    <Setter Property="OutlineColor" Value="DarkGreen" />
+                </Style>
+            </Frame.Style>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

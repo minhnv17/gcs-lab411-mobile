@@ -8,5 +8,6 @@ namespace GCS_LAB411.ViewModels
 {
     class MainViewModel : BaseViewModel
     {
+
     }
 }
