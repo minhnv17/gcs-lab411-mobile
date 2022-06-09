@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GCS_Comunication.Protocol
 {
+    
 
     public class Uavlink_message_t
     {
@@ -20,8 +21,47 @@ namespace GCS_Comunication.Protocol
             SetWPCmd = 0x07
         }
 
-        public MessageId msgid;
-        public sbyte len;
-        public byte[] payload;
+        MessageId _msgid;
+        private sbyte _lenPayload;
+        private byte[] _payload;
+
+        public MessageId Msgid
+        {
+            get { return _msgid; }
+            set { this._msgid = value; }
+        }
+        public sbyte LenPayload
+        {
+            get { return _lenPayload; }
+            set { this._lenPayload = value; }
+        }
+        public byte[] Payload
+        {
+            get { return _payload; }
+            set { this._payload = value; }
+        }
+
+        public void Encode(out byte[] pack)
+        {
+            byte[] data = new byte[1+1+_lenPayload];
+            data[0] = (byte)_msgid;
+            data[1] = (byte)_lenPayload;
+            for (int i = 0; i< _lenPayload; i++)
+            {
+                data[i + 2] = _payload[i];
+            }
+            pack = data;
+        }
+
+        public void Decode(byte[] data)
+        {
+            _msgid = (MessageId)data[0];
+            _lenPayload = (sbyte)data[1];
+            _payload = new byte[_lenPayload];
+            for (int i = 0; i < _lenPayload; i++)
+            {
+                _payload[i] = data[i + 2];
+            }
+        }
     }
 }

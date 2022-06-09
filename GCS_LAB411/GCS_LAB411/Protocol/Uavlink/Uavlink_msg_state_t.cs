@@ -15,12 +15,12 @@ namespace GCS_Comunication.Protocol.Uavlink
         public sbyte mode;
         public sbyte battery;
 
-        public void uavlink_state_decode(byte[] _byte)
+        public void Decode(byte[] data)
         {
-            connected = (sbyte)_byte[0];
-            armed = (sbyte)_byte[1];
-            mode = (sbyte)_byte[2];
-            battery = (sbyte)_byte[3];
+            connected = (sbyte)data[0];
+            armed = (sbyte)data[1];
+            mode = (sbyte)data[2];
+            battery = (sbyte)data[3];
         }
     }
 }
