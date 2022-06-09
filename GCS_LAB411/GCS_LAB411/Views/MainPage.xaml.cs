@@ -13,6 +13,7 @@ namespace GCS_LAB411
         public MainPage()
         {
             InitializeComponent();
+
         }
     }
 }
