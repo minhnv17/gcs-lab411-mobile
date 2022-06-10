@@ -14,7 +14,6 @@ namespace GCS_Comunication.Protocol.Uavlink
         public sbyte armed;
         public sbyte mode;
         public sbyte battery;
-
         public void Decode(byte[] data)
         {
             connected = (sbyte)data[0];

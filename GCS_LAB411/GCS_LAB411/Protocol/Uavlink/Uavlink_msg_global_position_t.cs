@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GCS_Comunication.Protocol.Uavlink
 {
-    public class Uavlink_global_position_int_t
+    public class Uavlink_msg_global_position_t
     {
         private double _lat;
         private double _lon;
