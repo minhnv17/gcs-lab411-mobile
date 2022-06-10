@@ -13,7 +13,12 @@ namespace GCS_Comunication.Comunication
         private UdpClient _udpClient;
         private string _severIp;
         private int _serverPort;
-        private bool _isOpen;
+
+        private bool _isOpen = false;
+        public bool IsOpen
+        {
+            get { return _isOpen; }
+        }
 
         public Udp_Connect(string ipAddress, int port) 
         {
