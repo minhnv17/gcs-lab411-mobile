@@ -15,9 +15,9 @@
                            WidthRequest="200" Margin="5,5,0,5">
                         <Slider Maximum="100" HeightRequest="30"
                                 Value="{Binding SlideValue, Mode=TwoWay}"
-                                BackgroundColor="#E7F2C7" 
+                                BackgroundColor="#E7F2C7"
                                 ThumbImageSource="arrow.png"
-                                DragCompletedCommand="{Binding DragCompleteCommand}" />
+                                DragCompletedCommand="{Binding ConfirmCommand}" />
                     </Frame>
                     
                     <Button WidthRequest="30" HeightRequest="30" 

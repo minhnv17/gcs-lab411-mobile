@@ -3,6 +3,8 @@ using MvvmHelpers.Commands;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GCS_LAB411.ViewModels.SubViewsModel
 {
@@ -40,53 +42,89 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             set { SetProperty(ref _isShow, value); }
         }
 
-        public Command DragCompleteCommand { get; set; }
+        public Command ConfirmCommand { get; set; }
         public Command CancelCommand { get; set; }
 
         public SlideConfirmViewModel()
         {
-            DragCompleteCommand = new Command(HandleDragComplete);
+            ConfirmCommand = new Command(HandleConfirmCommand);
             CancelCommand = new Command(HandleCancelCommand);
         }
 
-        private void HandleDragComplete(object obj)
+        private void HandleConfirmCommand()
         {
             if(_slideValue != 100) SlideValue = 0;
             else
             {
-
+                _res = ButtonReturn.OK;
+                SlideValue = 0;
             }
         }
 
         private void HandleCancelCommand()
         {
-            Console.WriteLine("command cancel!");
+            _res = ButtonReturn.Cancel;
+            SlideValue = 0;
         }
 
-        //private void HandleCommandConfirm()
-        //{
-        //    switch(_newCommand)
-        //    {
-        //        case CommandName.Takeoff:
-        //            break;
-        //        case CommandName.Land:
-        //            break;
-        //        case CommandName.Arm:
-        //            break;
-        //        case CommandName.Disarm:
-        //            break;
-        //        case CommandName.Flyto:
-        //            break;
-        //        case CommandName.RTL:
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //}
-
-        private void HandleCommandUnConfirm()
+        private int _outValue = 0;
+        public Task<Tuple<bool, int>> ShowSlideConfirm(string title, int initValue)
         {
+            Func<Tuple<bool, int>> waitConfirm = () =>
+            {
+                if (_isShow)
+                    return Tuple.Create<bool, int>(false, initValue);
 
+                NameOfCommand = title;
+                _outValue = initValue;
+                _res = ButtonReturn.Unknown;
+
+                IsShow = true;
+
+                while (_res != ButtonReturn.OK && _res != ButtonReturn.Cancel)
+                {
+                    Thread.Sleep(100);
+                }
+
+                IsShow = false;
+                if (_res == ButtonReturn.Cancel)
+                    return Tuple.Create<bool, int>(false, initValue);
+                else
+                    return Tuple.Create<bool, int>(true, initValue);
+            };
+
+            var task = new Task<Tuple<bool, int>>(waitConfirm);
+            task.Start();
+            return task;
+        }
+
+        public Task<bool> ShowSlideConfirm(string title = "", string message = "")
+        {
+            Func<bool> waitSlideConfirm = () =>
+            {
+                if (_isShow)
+                    return false;
+
+                _res = ButtonReturn.Unknown;
+
+                NameOfCommand = title;
+                IsShow = true;
+
+                while (_res != ButtonReturn.OK && _res != ButtonReturn.Cancel)
+                {
+                    Thread.Sleep(100);
+                }
+
+                IsShow = false;
+
+                if (_res == ButtonReturn.Cancel)
+                    return false;
+                else
+                    return true;
+            };
+            var task = new Task<bool>(waitSlideConfirm);
+            task.Start();
+            return task;
         }
     }
 }
