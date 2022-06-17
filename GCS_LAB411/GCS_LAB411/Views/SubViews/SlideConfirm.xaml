@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GCS_LAB411.Views.SubViews.SlideConfirm">
+    <ContentView.Content>
+        <Frame>
+            <StackLayout Orientation="Vertical">
+                <Label Text="{Binding NameOfCommand}"
+                       FontSize="10"
+                       HorizontalOptions="Center"/>
+
+                <StackLayout Orientation="Horizontal">
+                    <Frame Padding="0" CornerRadius="50"
+                           HorizontalOptions="StartAndExpand" 
+                           WidthRequest="200" Margin="5,5,0,5">
+                        <Slider Maximum="100" HeightRequest="30"
+                                Value="{Binding SlideValue, Mode=TwoWay}"
+                                BackgroundColor="#E7F2C7" 
+                                ThumbImageSource="arrow.png"
+                                DragCompletedCommand="{Binding DragCompleteCommand}" />
+                    </Frame>
+                    
+                    <Button WidthRequest="30" HeightRequest="30" 
+                            BackgroundColor="Transparent" VerticalOptions="Center" 
+                            ImageSource="cancel.png"/>
+                </StackLayout>
+            </StackLayout>
+
+            <Frame.Style>
+                <Style TargetType="Frame">
+                    <Setter Property="CornerRadius" Value="5"/>
+                    <Setter Property="BackgroundColor" Value="#B6B4B4"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Style>
+            </Frame.Style>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

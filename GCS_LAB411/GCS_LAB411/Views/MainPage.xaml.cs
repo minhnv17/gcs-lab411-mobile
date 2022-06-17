@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GCS_LAB411.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace GCS_LAB411
         public MainPage()
         {
             InitializeComponent();
+            this.BindingContext = new MainViewModel();
         }
     }
 }
