@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GCS_LAB411.Views.SubViews
 {
@@ -16,7 +17,7 @@ namespace GCS_LAB411.Views.SubViews
         public SlideConfirm()
         {
             InitializeComponent();
-            this.BindingContext = new SlideConfirmViewModel();
+            this.BindingContext = App.ServiceProvider.GetRequiredService<SlideConfirmViewModel>();
         }
     }
 }

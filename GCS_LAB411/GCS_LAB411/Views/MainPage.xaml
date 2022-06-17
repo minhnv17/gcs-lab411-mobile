@@ -43,16 +43,7 @@
         
         <!--Slide Confirm-->
         <subviews:SlideConfirm Margin="200,260,200,30">
-            <subviews:SlideConfirm.Style>
-                <Style TargetType="subviews:SlideConfirm">
-                    <Setter Property="IsVisible" Value="false"/>
-                    <Style.Triggers>
-                        <DataTrigger TargetType="subviews:SlideConfirm" Binding="{Binding IsShow}" Value="true">
-                            <Setter Property="IsVisible" Value="true"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </subviews:SlideConfirm.Style>
+           
         </subviews:SlideConfirm>
     </Grid>
 

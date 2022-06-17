@@ -1,4 +1,5 @@
 ﻿using GCS_LAB411.ViewModels;
+using GCS_LAB411.ViewModels.SubViewsModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GCS_LAB411.Views.SubViews
 {
@@ -16,7 +18,7 @@ namespace GCS_LAB411.Views.SubViews
         public NavBar()
         {
             InitializeComponent();
-            this.BindingContext = new NavBarViewModel();
+            this.BindingContext = App.ServiceProvider.GetRequiredService<FlytabViewModel>();
         }
     }
 }

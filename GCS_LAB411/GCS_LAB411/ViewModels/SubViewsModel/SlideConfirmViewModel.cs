@@ -38,8 +38,8 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
         private bool _isShow = false;
         public bool IsShow
         {
-            get { return _isShow; }
-            set { SetProperty(ref _isShow, value); }
+            get => _isShow;
+            set => SetProperty(ref _isShow, value);
         }
 
         public Command ConfirmCommand { get; set; }
@@ -127,4 +127,5 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             return task;
         }
     }
+
 }

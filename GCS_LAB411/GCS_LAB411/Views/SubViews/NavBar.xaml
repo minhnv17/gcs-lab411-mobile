@@ -32,7 +32,8 @@
                              BackgroundColor="Transparent"
                              Style="{StaticResource image-style}"
                              Margin="0,0,25,0"
-                             Command="{Binding AddWayPointCommand}"/>
+                             Command="{Binding FlytoCommand}"
+                             CommandParameter="DoFlyTo"/>
 
                 <ImageButton Source="waypoint.png"
                              BackgroundColor="Transparent"
