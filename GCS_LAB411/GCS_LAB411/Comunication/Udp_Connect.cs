@@ -13,6 +13,7 @@ namespace GCS_Comunication.Comunication
         private UdpClient _udpClient;
         private string _severIp;
         private int _serverPort;
+        private IPEndPoint _serverEP;
 
         private bool _isOpen = false;
         public bool IsOpen
@@ -32,7 +33,11 @@ namespace GCS_Comunication.Comunication
             {
                 if(_udpClient == null)
                 {
-                    _udpClient = new UdpClient(_severIp, _serverPort);
+                    _serverEP = new IPEndPoint(IPAddress.Parse(_severIp), _serverPort);
+                    _udpClient = new UdpClient();
+                    _udpClient.Connect(_serverEP);
+                    byte[] data = Encoding.ASCII.GetBytes("First Connection");
+                    SendData(data);
                 }
                 _isOpen = true;
             }
@@ -74,11 +79,9 @@ namespace GCS_Comunication.Comunication
             }
         }
 
-        public int ReceiveData(out byte[] data, out IPEndPoint remoteEnpoint)
+        public int ReceiveData(out byte[] data)
         {
-            IPEndPoint enpoint = new IPEndPoint(IPAddress.Any, 0);
-            data = _udpClient.Receive(ref enpoint);
-            remoteEnpoint = enpoint;
+            data = _udpClient.Receive(ref _serverEP);
             return data.Length;
         }
 

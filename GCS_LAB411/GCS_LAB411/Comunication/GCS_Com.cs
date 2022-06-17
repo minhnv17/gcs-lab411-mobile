@@ -35,7 +35,6 @@ namespace GCS_Comunication.Comunication
         {
             _connect = connect;
 
-            //receiver background worker
             _receivingThread = new Thread(new ThreadStart(ReceivingThreadFunction));
             _receivingThread.IsBackground = true;
 
@@ -63,15 +62,14 @@ namespace GCS_Comunication.Comunication
                     {
                         // Receive packet from network, then put to queue which is processed by parser
                         byte[] buffer;
-                        IPEndPoint remoteEP;
-                        if (_connect.ReceiveData(out buffer, out remoteEP) > 0)
+                        if (_connect.ReceiveData(out buffer) > 0)
                         {
                             _recvQueue.Add(buffer);
                         }
                     }
                 }
                 catch { }
-                Thread.Sleep(1); //nhatdn1 added
+                Thread.Sleep(1);
             }
         }
         private void ParsingThreadFunction()
@@ -83,7 +81,7 @@ namespace GCS_Comunication.Comunication
 
                 message.Decode(buffer);
                 OnReceivedMessage(message);
-                Thread.Sleep(1); //nhatdn1 added
+                Thread.Sleep(1);
             }
         }
 
@@ -109,10 +107,9 @@ namespace GCS_Comunication.Comunication
                                 return;
                             }
                         }
-                        // Send packet over network
                     }
                 }
-                Thread.Sleep(1);//nhatdn1 added
+                Thread.Sleep(1);
             }
         }
 
