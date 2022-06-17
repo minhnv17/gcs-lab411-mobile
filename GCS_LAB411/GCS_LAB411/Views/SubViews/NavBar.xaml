@@ -26,14 +26,22 @@
                 <ImageButton Source="logo411.png"
                              BackgroundColor="#F6F6F6"
                              Style="{StaticResource image-style}"
-                             Margin="5,0,25,0"/>
+                             Margin="5,0,25,0"
+                             Command="{Binding ChangedViewCommand}"
+                             CommandParameter="0"/>
 
-                <ImageButton Source="flyto.png"
+                <!--<ImageButton Source="flyto.png"
                              BackgroundColor="Transparent"
                              Style="{StaticResource image-style}"
                              Margin="0,0,25,0"
                              Command="{Binding FlytoCommand}"
-                             CommandParameter="DoFlyTo"/>
+                             CommandParameter="DoFlyTo"/>-->
+                <ImageButton Source="flyto.png"
+                             BackgroundColor="Transparent"
+                             Style="{StaticResource image-style}"
+                             Margin="0,0,25,0"
+                             Command="{Binding ChangedViewCommand}"
+                             CommandParameter="1"/>
 
                 <ImageButton Source="waypoint.png"
                              BackgroundColor="Transparent"

@@ -8,17 +8,25 @@ namespace GCS_LAB411.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private int _selectedTabIndex;
+        private int _selectedTabIndex = 0;
 
         public int SelectedTabIndex
         {
-            get { return _selectedTabIndex; }
-            set { _selectedTabIndex = value; }
+            get => _selectedTabIndex;
+            set => SetProperty(ref _selectedTabIndex, value);
         }
-        
-        public MainViewModel()
+
+        NavBarViewModel _nbViewModel;
+        public MainViewModel(NavBarViewModel nbViewModel)
         {
-            _selectedTabIndex = 0;
+            _nbViewModel = nbViewModel;
+
+            _nbViewModel.SelectTabEvent += HandleSelectTab;
+        }
+
+        private void HandleSelectTab(int index)
+        {
+            SelectedTabIndex = index;
         }
     }
 }

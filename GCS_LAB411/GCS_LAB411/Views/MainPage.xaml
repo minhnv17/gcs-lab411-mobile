@@ -5,10 +5,6 @@
              xmlns:subviews="clr-namespace:GCS_LAB411.Views.SubViews"
              x:Class="GCS_LAB411.MainPage" >
 
-    <ContentPage.BindingContext>
-        <vm:MainViewModel></vm:MainViewModel>
-    </ContentPage.BindingContext>
-
     <Grid>
         <!--Navbar view-->
         <subviews:NavBar HeightRequest="40" VerticalOptions="StartAndExpand"/>
@@ -19,7 +15,7 @@
                 <Style TargetType="subviews:Flytab">
                     <Setter Property="IsVisible" Value="false"/>
                     <Style.Triggers>
-                        <DataTrigger TargetType="subviews:Flytab" Binding="{Binding SelectedTabIndex}" Value="0">
+                        <DataTrigger TargetType="subviews:Flytab" Binding="{Binding SelectedTabIndex}" Value="1">
                             <Setter Property="IsVisible" Value="true"/>
                         </DataTrigger>
                     </Style.Triggers>
@@ -33,7 +29,7 @@
                 <Style TargetType="subviews:Setting">
                     <Setter Property="IsVisible" Value="false"/>
                     <Style.Triggers>
-                        <DataTrigger TargetType="subviews:Setting" Binding="{Binding SelectedTabIndex}" Value="1">
+                        <DataTrigger TargetType="subviews:Setting" Binding="{Binding SelectedTabIndex}" Value="0">
                             <Setter Property="IsVisible" Value="true"/>
                         </DataTrigger>
                     </Style.Triggers>
