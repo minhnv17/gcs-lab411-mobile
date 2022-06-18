@@ -24,7 +24,7 @@
         </subviews:Flytab>
         
         <!--Setting View-->
-        <subviews:Setting Margin="0,40,0,0" BackgroundColor="Red">
+        <subviews:Setting Margin="0,40,0,0">
             <subviews:Setting.Style>
                 <Style TargetType="subviews:Setting">
                     <Setter Property="IsVisible" Value="false"/>
