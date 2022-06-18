@@ -29,21 +29,21 @@ namespace GCS_Comunication.Comunication
 
         public void DoConnect()
         {
-            try
+            if(_udpClient == null)
             {
-                if(_udpClient == null)
+                byte[] data = Encoding.ASCII.GetBytes("Hello World");
+                _serverEP = new IPEndPoint(IPAddress.Parse(_severIp), _serverPort);
+                _udpClient = new UdpClient();
+                try
                 {
-                    _serverEP = new IPEndPoint(IPAddress.Parse(_severIp), _serverPort);
-                    _udpClient = new UdpClient();
                     _udpClient.Connect(_serverEP);
-                    byte[] data = Encoding.ASCII.GetBytes("First Connection");
-                    SendData(data);
+                    _udpClient.Send(data, data.Length);
+                    _isOpen = true;
                 }
-                _isOpen = true;
-            }
-            catch
-            {
-                throw new Exception("Error when connect with UAV");
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
             }
         }
 

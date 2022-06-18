@@ -73,15 +73,17 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Text="HOST NAME" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
-                        <Entry Text="192.168.11.1" Grid.Column="1" Grid.Row="0"  VerticalOptions="Center"/>
+                        <Entry Text="{Binding HostName, Mode=TwoWay}" Grid.Column="1" Grid.Row="0"  VerticalOptions="Center"/>
                         <Label Text="PORT" Grid.Column="0" Grid.Row="1"  VerticalOptions="Center" HorizontalOptions="Center"/>
-                        <Entry Text="12345" Grid.Column="1" Grid.Row="1"  VerticalOptions="Center"/>
+                        <Entry Text="{Binding Port, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"  VerticalOptions="Center"/>
                     </Grid>
                 </Frame>
 
                 <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand" Spacing="25" HorizontalOptions="Center">
-                    <Button Text="Connect" IsEnabled="False"></Button>
-                    <Button Text="Disconnect" IsEnabled="False"></Button>
+                    <Button Text="Connect"
+                            Command="{Binding ConnectCommand}"></Button>
+                    <Button Text="Disconnect"
+                            Command="{Binding DisConnectCommand}"></Button>
                 </StackLayout>
                 <StackLayout.Style>
                     <Style TargetType="StackLayout">
