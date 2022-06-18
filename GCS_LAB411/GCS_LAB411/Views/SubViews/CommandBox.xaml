@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GCS_LAB411.Views.SubViews.CommandBox">
+  <ContentView.Content>
+        <Frame Padding="0">
+            <StackLayout Orientation="Vertical" BackgroundColor="Gray" Padding="5">
+                <StackLayout Orientation="Vertical">
+                    <ImageButton 
+                    Source="takeoff.png"
+                    Scale="1.5"
+                    BackgroundColor= "Transparent"
+                    HorizontalOptions="Center"/>
+                    <Label Text="Takeoff" FontSize="Micro" HorizontalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <ImageButton
+                    Source="drone_flyto.png"
+                    BackgroundColor= "Transparent"
+                    Scale="1.5"/>
+                    <Label Text="FlyTo" FontSize="Micro" HorizontalOptions="Center"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical">
+                    <ImageButton
+                    Source="rtl.png"
+                    BackgroundColor= "Transparent"/>
+                    <Label Text="RTL" FontSize="Micro" HorizontalOptions="Center"/>
+                </StackLayout>
+                
+
+            </StackLayout>
+        </Frame>
+    </ContentView.Content>
+</ContentView>
