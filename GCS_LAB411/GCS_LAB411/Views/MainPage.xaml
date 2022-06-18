@@ -10,37 +10,14 @@
         <subviews:NavBar HeightRequest="40" VerticalOptions="StartAndExpand"/>
         
         <!--Flytab view-->
-        <subviews:Flytab Margin="0,40,0,0">
-            <subviews:Flytab.Style>
-                <Style TargetType="subviews:Flytab">
-                    <Setter Property="IsVisible" Value="false"/>
-                    <Style.Triggers>
-                        <DataTrigger TargetType="subviews:Flytab" Binding="{Binding SelectedTabIndex}" Value="1">
-                            <Setter Property="IsVisible" Value="true"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </subviews:Flytab.Style>
-        </subviews:Flytab>
+        <subviews:Flytab Margin="0,40,0,0"></subviews:Flytab>
         
         <!--Setting View-->
-        <subviews:Setting Margin="0,40,0,0">
-            <subviews:Setting.Style>
-                <Style TargetType="subviews:Setting">
-                    <Setter Property="IsVisible" Value="false"/>
-                    <Style.Triggers>
-                        <DataTrigger TargetType="subviews:Setting" Binding="{Binding SelectedTabIndex}" Value="0">
-                            <Setter Property="IsVisible" Value="true"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </subviews:Setting.Style>
-        </subviews:Setting>
+        <subviews:SettingPanel Margin="0,40,0,0"></subviews:SettingPanel>
         
         <!--Slide Confirm-->
-        <subviews:SlideConfirm Margin="200,260,200,30">
-           
-        </subviews:SlideConfirm>
+        <subviews:SlideConfirm Margin="200,260,200,30"></subviews:SlideConfirm>
+        
     </Grid>
 
 </ContentPage>

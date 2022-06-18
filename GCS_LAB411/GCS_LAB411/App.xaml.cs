@@ -45,9 +45,10 @@ namespace GCS_LAB411
         {
             //services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
             //_mapDownload = new HttpTileDownload();
-            services.AddSingleton<ConnectionViewModel>();
             //// Register all ViewModels.
             services.AddSingleton<MainPage>();
+            services.AddSingleton<ConnectionViewModel>();
+            services.AddSingleton<SettingViewModel>();
             services.AddSingleton<FlytabViewModel>();
             services.AddSingleton<NavBarViewModel>();
             services.AddSingleton<MainViewModel>();
