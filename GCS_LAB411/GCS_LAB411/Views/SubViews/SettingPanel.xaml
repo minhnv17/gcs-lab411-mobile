@@ -19,14 +19,19 @@
             <StackLayout Orientation="Vertical">
                 <Label Text="Setting" Margin="0,0,0,5" FontSize="Small"/>
                 <StackLayout Orientation="Vertical">
-                    <Button Text="General" Style="{StaticResource btn-style}"></Button>
-                    <Button Text="Comlink" Style="{StaticResource btn-style}"></Button>
+                    <Button Text="General" 
+                            Style="{StaticResource btn-style}"
+                            Command="{Binding SelectedTabCommand}"
+                            CommandParameter="0"></Button>
+                    <Button Text="Comlink" 
+                            Style="{StaticResource btn-style}"
+                            Command="{Binding SelectedTabCommand}"
+                            CommandParameter="1"></Button>
                 </StackLayout>
             </StackLayout>
             <Line X1="0" Y1="10" X2="0"  Y2="300" Stroke="#696969" HorizontalOptions="Start"/>
             
         <!--Setting general layout-->
-        
             <StackLayout Orientation="Vertical" Padding="20" HorizontalOptions="FillAndExpand">
                 <StackLayout Orientation="Vertical">
                     <Label Text="General"></Label>
@@ -40,11 +45,20 @@
 
                     </Frame>
                 </StackLayout>
+                <StackLayout.Style>
+                    <Style TargetType="StackLayout">
+                        <Setter Property="IsVisible" Value="false"/>
+                        <Style.Triggers>
+                            <DataTrigger TargetType="StackLayout" Binding="{Binding SelectedTabIndex}"
+                                         Value="0">
+                                <Setter Property="IsVisible" Value="true"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackLayout.Style>
             </StackLayout>
             
-            
-        <!--Setting Comlink layout-->
-        
+            <!--Setting Comlink layout-->
             <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Padding="20" IsVisible="false">
                 <Label Text="UDP LINK CONNECTION"/>
                 <Frame BackgroundColor="#A9A9A9">
@@ -69,7 +83,19 @@
                     <Button Text="Connect" IsEnabled="False"></Button>
                     <Button Text="Disconnect" IsEnabled="False"></Button>
                 </StackLayout>
+                <StackLayout.Style>
+                    <Style TargetType="StackLayout">
+                        <Setter Property="IsVisible" Value="false"/>
+                        <Style.Triggers>
+                            <DataTrigger TargetType="StackLayout" Binding="{Binding SelectedTabIndex}"
+                                         Value="1">
+                                <Setter Property="IsVisible" Value="true"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackLayout.Style>
             </StackLayout>
+            <!--End setting Comlink-->
         </StackLayout>
     </ContentView.Content>
     <ContentView.Style>

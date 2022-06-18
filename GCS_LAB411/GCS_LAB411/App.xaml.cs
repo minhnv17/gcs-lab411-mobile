@@ -47,7 +47,6 @@ namespace GCS_LAB411
             //_mapDownload = new HttpTileDownload();
             //// Register all ViewModels.
             services.AddSingleton<MainPage>();
-            services.AddSingleton<ConnectionViewModel>();
             services.AddSingleton<SettingViewModel>();
             services.AddSingleton<FlytabViewModel>();
             services.AddSingleton<NavBarViewModel>();
