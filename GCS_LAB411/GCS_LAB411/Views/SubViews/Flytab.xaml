@@ -10,4 +10,14 @@
                                HorizontalOptions="End"
                                Margin="24"/>
     </ContentView.Content>
+    <ContentView.Style>
+        <Style TargetType="ContentView">
+            <Setter Property="IsVisible" Value="false"/>
+            <Style.Triggers>
+                <DataTrigger TargetType="ContentView" Binding="{Binding IsShow}" Value="true">
+                    <Setter Property="IsVisible" Value="true"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </ContentView.Style>
 </ContentView>

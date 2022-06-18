@@ -10,6 +10,13 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
 {
     public class FlytabViewModel : BaseViewModel
     {
+        private bool _isShow = false;
+        public bool IsShow
+        {
+            get => _isShow;
+            set => SetProperty(ref _isShow, value);
+        }
+
         public PilotCommand FlytoCommand { get; set; }
         private SlideConfirmViewModel _scViewModel;
         public FlytabViewModel(SlideConfirmViewModel scViewModel)

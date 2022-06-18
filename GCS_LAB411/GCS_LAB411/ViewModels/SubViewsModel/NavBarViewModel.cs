@@ -6,19 +6,24 @@ using System.Text;
 
 namespace GCS_LAB411.ViewModels
 {
-    class NavBarViewModel : BaseViewModel
+    public class NavBarViewModel : BaseViewModel
     {
+        public delegate void SelectTabDelegate(int index);
+        public event SelectTabDelegate SelectTabEvent;
+        public Command AddWayPointCommand { get; set; }
+        public Command ChangedViewCommand { get; set; }
         public NavBarViewModel()
         {
-            AddWayPointCommand = new Command(handleAddWaypoint);
+            ChangedViewCommand = new Command(HandleChangedViewCommand);
         }
-        public Command AddWayPointCommand { get; set; }
-        public Command FlyViewCommand { get; set; }
-        public Command SettingCommand { get; set; }
 
-        private void handleAddWaypoint()
+        private void HandleChangedViewCommand(object obj)
         {
-            Console.WriteLine("test");
+            if(obj != null)
+            {
+                int index = int.Parse(obj as string);
+                SelectTabEvent?.Invoke(index);
+            }
         }
     }
 }

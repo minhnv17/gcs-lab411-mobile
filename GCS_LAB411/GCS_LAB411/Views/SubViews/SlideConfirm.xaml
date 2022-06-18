@@ -13,16 +13,20 @@
                     <Frame Padding="0" CornerRadius="50"
                            HorizontalOptions="StartAndExpand" 
                            WidthRequest="200" Margin="5,5,0,5">
-                        <Slider Maximum="100" HeightRequest="30"
-                                Value="{Binding SlideValue, Mode=TwoWay}"
-                                BackgroundColor="#E7F2C7"
-                                ThumbImageSource="arrow.png"
-                                DragCompletedCommand="{Binding ConfirmCommand}" />
+                        <Grid>
+                            <Label Text="Slide To Confirm" FontSize="11" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Slider Maximum="100" HeightRequest="30"
+                                    Value="{Binding SlideValue, Mode=TwoWay}"
+                                    ThumbImageSource="arrow.png"
+                                    DragCompletedCommand="{Binding ConfirmCommand}"
+                                    />
+                        </Grid>
                     </Frame>
 
                     <Button WidthRequest="30" HeightRequest="30" 
                             BackgroundColor="Transparent" VerticalOptions="Center" 
-                            ImageSource="cancel.png"/>
+                            ImageSource="cancel.png"
+                            Command="{Binding CancelCommand}"/>
                 </StackLayout>
             </StackLayout>
 

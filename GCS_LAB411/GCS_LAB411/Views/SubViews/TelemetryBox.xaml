@@ -24,7 +24,7 @@
                             <Label Text="{Binding Attitude}" Style="{StaticResource lable-style}"/>
                         </StackLayout>
                         <Label Text="Attitude(m)" Style="{StaticResource lable-style}"/>
-                        <Label Text="0.25" Style="{StaticResource lable-style}"/>
+                        <Label Text="{Binding Attitude}" Style="{StaticResource lable-style}"/>
                         <Label Text="GroundSpeed(m/s)" Style="{StaticResource lable-style}"/>
                         <Label Text="{Binding Attitude}" Style="{StaticResource lable-style}"/>
                         <Label Text="PositionX(m)" Style="{StaticResource lable-style}"/>
@@ -39,7 +39,7 @@
             <Frame.Style>
                 <Style TargetType="Frame">
                     <Setter Property="BackgroundColor" Value="White"/>
-                    <Setter Property="Padding" Value="1"/>
+                    <Setter Property="Padding" Value="2"/>
                     <Setter Property="OutlineColor" Value="DarkGreen" />
                 </Style>
             </Frame.Style>

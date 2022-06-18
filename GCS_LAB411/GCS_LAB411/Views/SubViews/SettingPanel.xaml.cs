@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Microsoft.Extensions.DependencyInjection;
+using GCS_LAB411.ViewModels.SubViewsModel;
 
 namespace GCS_LAB411.Views.SubViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Connection : ContentView
+    public partial class SettingPanel : ContentView
     {
-        public Connection()
+        public SettingPanel()
         {
             InitializeComponent();
+            this.BindingContext = App.ServiceProvider.GetRequiredService<SettingViewModel>();
         }
     }
 }

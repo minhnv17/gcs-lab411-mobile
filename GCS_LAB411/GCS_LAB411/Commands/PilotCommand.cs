@@ -34,19 +34,45 @@ namespace GCS_LAB411.Commands
         }
         public override async Task ExecuteAsync(object parameter)
         {
+            int initValue = 0;
+
             if (parameter is string)
             {
-                bool resRightButton = false;
+                string actionType = parameter as string;
+                bool resConfirm = false;
+                int outValue = 0;
                 Tuple<bool, string> answer;
-                var res = await _scViewModel.ShowSlideConfirm("Do arm", 20);
-                resRightButton = res.Item1;
 
-                switch (parameter as string)
+                // Initial value before show slide confirm command
+                switch(actionType)
                 {
-                    case "DoFlyTo":
-                        answer = await (_parent as FlytabViewModel).FlytoAction();
+                    case "DoTakeOff":
+                        initValue = 1;
                         break;
-                    default: break;
+                    default:
+                        break;
+                }
+
+                // Show slider confirm command
+                var res = await _scViewModel.ShowSlideConfirm(actionType, initValue);
+                resConfirm = res.Item1;
+                outValue = res.Item2;
+
+                // Handle confirm or not
+                if (resConfirm)
+                {
+                    switch (actionType)
+                    {
+                        case "DoFlyTo":
+                            Console.WriteLine("DoFlyTo");
+                            break;
+
+                        case "DoArm":
+                            Console.WriteLine("DoARM");
+                            break;
+                        default: 
+                            break;
+                    }
                 }
             }
         }

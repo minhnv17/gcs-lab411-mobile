@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GCS_LAB411.Views.SubViews.SettingPanel">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="btn-style" TargetType="Button">
+                <Setter Property="WidthRequest" Value="75"/>
+                <Setter Property="HeightRequest" Value="35"/>
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    
+  <ContentView.Content>
+        <StackLayout Orientation="Horizontal" Padding="10,5,0,0">
+            <StackLayout Orientation="Vertical">
+                <Label Text="Setting" Margin="0,0,0,5" FontSize="Small"/>
+                <StackLayout Orientation="Vertical">
+                    <Button Text="General" 
+                            Style="{StaticResource btn-style}"
+                            Command="{Binding SelectedTabCommand}"
+                            CommandParameter="0"></Button>
+                    <Button Text="Comlink" 
+                            Style="{StaticResource btn-style}"
+                            Command="{Binding SelectedTabCommand}"
+                            CommandParameter="1"></Button>
+                </StackLayout>
+            </StackLayout>
+            <Line X1="0" Y1="10" X2="0"  Y2="300" Stroke="#696969" HorizontalOptions="Start"/>
+            
+        <!--Setting general layout-->
+            <StackLayout Orientation="Vertical" Padding="20" HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Vertical">
+                    <Label Text="General"></Label>
+                    <Frame BackgroundColor="#A9A9A9">
+
+                    </Frame>
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label Text="Map"></Label>
+                    <Frame BackgroundColor="#A9A9A9">
+
+                    </Frame>
+                </StackLayout>
+                <StackLayout.Style>
+                    <Style TargetType="StackLayout">
+                        <Setter Property="IsVisible" Value="false"/>
+                        <Style.Triggers>
+                            <DataTrigger TargetType="StackLayout" Binding="{Binding SelectedTabIndex}"
+                                         Value="0">
+                                <Setter Property="IsVisible" Value="true"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackLayout.Style>
+            </StackLayout>
+            
+            <!--Setting Comlink layout-->
+            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Padding="20" IsVisible="false">
+                <Label Text="UDP LINK CONNECTION"/>
+                <Frame BackgroundColor="#A9A9A9">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="HOST NAME" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                        <Entry Text="192.168.11.1" Grid.Column="1" Grid.Row="0"  VerticalOptions="Center"/>
+                        <Label Text="PORT" Grid.Column="0" Grid.Row="1"  VerticalOptions="Center" HorizontalOptions="Center"/>
+                        <Entry Text="12345" Grid.Column="1" Grid.Row="1"  VerticalOptions="Center"/>
+                    </Grid>
+                </Frame>
+
+                <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand" Spacing="25" HorizontalOptions="Center">
+                    <Button Text="Connect" IsEnabled="False"></Button>
+                    <Button Text="Disconnect" IsEnabled="False"></Button>
+                </StackLayout>
+                <StackLayout.Style>
+                    <Style TargetType="StackLayout">
+                        <Setter Property="IsVisible" Value="false"/>
+                        <Style.Triggers>
+                            <DataTrigger TargetType="StackLayout" Binding="{Binding SelectedTabIndex}"
+                                         Value="1">
+                                <Setter Property="IsVisible" Value="true"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackLayout.Style>
+            </StackLayout>
+            <!--End setting Comlink-->
+        </StackLayout>
+    </ContentView.Content>
+    <ContentView.Style>
+        <Style TargetType="ContentView">
+            <Setter Property="IsVisible" Value="false"/>
+            <Style.Triggers>
+                <DataTrigger TargetType="ContentView" Binding="{Binding IsShow}" Value="true">
+                    <Setter Property="IsVisible" Value="true"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </ContentView.Style>
+</ContentView>
