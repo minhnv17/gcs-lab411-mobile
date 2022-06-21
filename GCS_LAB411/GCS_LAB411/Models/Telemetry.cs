@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using VTGCS_WPF.Models;
 
 namespace GCS_LAB411.Models
 {
@@ -16,20 +17,14 @@ namespace GCS_LAB411.Models
             LAND
         };
 
-        private bool _connected;
+        private bool _connected = false;
         public bool Connected
         {
-            get
-            {
-                return _connected;
-            }
-            set
-            {
-                SetProperty(ref _connected, value);
-            }
+            get => _connected;
+            set => SetProperty(ref _connected, value);
         }
 
-        private bool _arm;
+        private bool _arm = false;
         public bool Arm
         {
             get
@@ -68,7 +63,7 @@ namespace GCS_LAB411.Models
             }
         }
 
-        private bool _positionStatus;
+        private bool _positionStatus = false;
         public bool PositionStatus
         {
             get

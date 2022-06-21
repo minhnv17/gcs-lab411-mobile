@@ -11,6 +11,14 @@ namespace GCS_LAB411.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
+        private int _test = 50;
+
+        public int Test
+        {
+            get => _test;
+            set => SetProperty(ref _test, value);
+        }
+
         private int _selectedTabIndex = 0;
 
         public int SelectedTabIndex
@@ -32,6 +40,7 @@ namespace GCS_LAB411.ViewModels
         {
             get => _vhViewModel;
         }
+
         public MainViewModel(NavBarViewModel nbViewModel, SettingViewModel stViewModel, 
             FlytabViewModel flViewModel)
         {

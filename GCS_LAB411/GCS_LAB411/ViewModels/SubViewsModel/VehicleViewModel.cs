@@ -19,6 +19,7 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
         public VehicleViewModel(GCS_Com com)
         {
             _com = com;
+            telemetry = new Telemetry();
             _com.StateChanged += new DelegateState(handleStateChanged);
             _com.LocalPosChanged += new DelegateLocalPos(handleLocalPosChanged);
         }

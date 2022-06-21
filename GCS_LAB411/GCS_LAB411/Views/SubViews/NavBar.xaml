@@ -44,7 +44,7 @@
 
             </StackLayout>
 
-            <StackLayout Grid.Column="1" Orientation="Horizontal" BindingContext="{Binding VehicleViewModel.Telemetry}">
+            <StackLayout Grid.Column="1" Orientation="Horizontal">
                 <StackLayout Orientation="Horizontal">
                     <StackLayout Orientation="Horizontal" Margin="0,0,50,0">
                         <Ellipse WidthRequest="25" HeightRequest="25" VerticalOptions="Center">
@@ -52,7 +52,7 @@
                                 <Style TargetType="Ellipse">
                                     <Setter Property="Fill" Value="Red"/>
                                     <Style.Triggers>
-                                        <DataTrigger TargetType="Ellipse" Binding="{Binding Connected}" Value="true">
+                                        <DataTrigger TargetType="Ellipse" Binding="{Binding VehicleViewModel.telemetry.Connected}" Value="true">
                                             <Setter Property="Fill" Value="GreenYellow" />
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -63,9 +63,23 @@
                     </StackLayout>
 
                     <Image Source="batterystatus.png" BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
-                    <Label Text="54%" TextColor="White" FontSize="Medium" VerticalOptions="Center" Margin="0,0,25,0"/>
-                    <Label Text="AUTO" TextColor="White" FontSize="Medium" VerticalOptions="Center" Margin="0,0,25,0"/>
-                    <Label Text="ARMED" TextColor="White" FontSize="Medium" VerticalOptions="Center" Margin="0,0,25,0"/>
+                    <StackLayout Orientation="Horizontal" Spacing="0" Margin="-7,0,5,0">
+                        <Label Text="{Binding VehicleViewModel.telemetry.Battery}" TextColor="White" FontSize="Medium" VerticalOptions="Center"/>
+                        <Label Text="%" TextColor="White" FontSize="Medium" VerticalOptions="Center"/>
+                    </StackLayout>
+                    <Label Text="AUTO" TextColor="White" FontSize="Medium" VerticalOptions="Center" Margin="05,0,20,0"/>
+                    <Label TextColor="White" FontSize="Medium" VerticalOptions="Center" Margin="0,0,25,0">
+                        <Label.Style>
+                            <Style TargetType="Label">
+                                <Setter Property="Text" Value="DISARMED"/>
+                                <Style.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding VehicleViewModel.telemetry.Arm}" Value="true">
+                                        <Setter Property="Text" Value="ARMED"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
                 </StackLayout>
             </StackLayout>
 
