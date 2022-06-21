@@ -27,20 +27,14 @@
                              BackgroundColor="#F6F6F6"
                              Style="{StaticResource image-style}"
                              Margin="5,0,25,0"
-                             Command="{Binding ChangedViewCommand}"
+                             Command="{Binding NavBarViewModel.ChangedViewCommand}"
                              CommandParameter="0"/>
 
-                <!--<ImageButton Source="flyto.png"
-                             BackgroundColor="Transparent"
-                             Style="{StaticResource image-style}"
-                             Margin="0,0,25,0"
-                             Command="{Binding FlytoCommand}"
-                             CommandParameter="DoFlyTo"/>-->
                 <ImageButton Source="flyto.png"
                              BackgroundColor="Transparent"
                              Style="{StaticResource image-style}"
                              Margin="0,0,25,0"
-                             Command="{Binding ChangedViewCommand}"
+                             Command="{Binding NavBarViewModel.ChangedViewCommand}"
                              CommandParameter="1"/>
 
                 <ImageButton Source="waypoint.png"
@@ -49,8 +43,8 @@
                              Margin="0,0,25,0"/>
 
             </StackLayout>
-            
-            <StackLayout Grid.Column="1" Orientation="Horizontal">
+
+            <StackLayout Grid.Column="1" Orientation="Horizontal" BindingContext="{Binding VehicleViewModel.Telemetry}">
                 <StackLayout Orientation="Horizontal">
                     <StackLayout Orientation="Horizontal" Margin="0,0,50,0">
                         <Ellipse WidthRequest="25" HeightRequest="25" VerticalOptions="Center">
@@ -58,7 +52,7 @@
                                 <Style TargetType="Ellipse">
                                     <Setter Property="Fill" Value="Red"/>
                                     <Style.Triggers>
-                                        <DataTrigger TargetType="Ellipse" Binding="{Binding LinkStatus}" Value="True">
+                                        <DataTrigger TargetType="Ellipse" Binding="{Binding Connected}" Value="true">
                                             <Setter Property="Fill" Value="GreenYellow" />
                                         </DataTrigger>
                                     </Style.Triggers>

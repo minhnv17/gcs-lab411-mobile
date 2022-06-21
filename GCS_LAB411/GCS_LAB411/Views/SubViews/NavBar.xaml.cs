@@ -18,7 +18,7 @@ namespace GCS_LAB411.Views.SubViews
         public NavBar()
         {
             InitializeComponent();
-            this.BindingContext = App.ServiceProvider.GetRequiredService<NavBarViewModel>();
+            this.BindingContext = App.ServiceProvider.GetRequiredService<MainViewModel>();
         }
     }
 }
