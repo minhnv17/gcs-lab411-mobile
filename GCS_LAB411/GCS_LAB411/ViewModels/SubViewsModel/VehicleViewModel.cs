@@ -28,6 +28,7 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
         {
             _com = null;
         }
+
         private void handleStateChanged(Uavlink_msg_state_t message)
         {
             telemetry.Arm = message.Armed == 0 ? false : true;

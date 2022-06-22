@@ -67,7 +67,7 @@
                         <Label Text="{Binding VehicleViewModel.telemetry.Battery}" TextColor="White" FontSize="Medium" VerticalOptions="Center"/>
                         <Label Text="%" TextColor="White" FontSize="Medium" VerticalOptions="Center"/>
                     </StackLayout>
-                    <Label Text="AUTO" TextColor="White" FontSize="Medium" VerticalOptions="Center" Margin="05,0,20,0"/>
+                    <Label Text="AUTO" TextColor="White" FontSize="Medium" VerticalOptions="Center" Margin="5,0,20,0"/>
                     <Label TextColor="White" FontSize="Medium" VerticalOptions="Center" Margin="0,0,25,0">
                         <Label.Style>
                             <Style TargetType="Label">
