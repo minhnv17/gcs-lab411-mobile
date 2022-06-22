@@ -9,6 +9,8 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
 {
     public class SettingViewModel : BaseViewModel
     {
+        public delegate void DelegateConnectVehicle(GCS_Com _mycom);
+        public event DelegateConnectVehicle ConnectVehicle;
         private bool _isShow = false;
         public bool IsShow
         {
@@ -39,6 +41,10 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
 
         private Udp_Connect _myUdp;
         private GCS_Com _myCom;
+        public GCS_Com MyCom
+        {
+            get => _myCom;
+        }
 
         public Command SelectedTabCommand { get; set; }
         public Command ConnectCommand { get; set; }
@@ -71,6 +77,7 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             if (_myUdp.IsOpen)
             {
                 _myCom = new GCS_Com(_myUdp);
+                ConnectVehicle?.Invoke(_myCom);
             }
         }
 
