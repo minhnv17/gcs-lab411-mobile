@@ -22,23 +22,24 @@ namespace GCS_LAB411.ViewModels
         private NavBarViewModel _nbViewModel;
         private SettingViewModel _stViewModel;
         private FlytabViewModel _flytabViewModel;
-        private VehicleViewModel _vhViewModel;
+        private VehicleManagerViewModel _vhManagerViewModel;
 
         public NavBarViewModel NavBarViewModel
         {
             get => _nbViewModel;
         }
-        public VehicleViewModel VehicleViewModel
+        public VehicleManagerViewModel VehicleManagerViewModel
         {
-            get => _vhViewModel;
+            get => _vhManagerViewModel;
         }
 
         public MainViewModel(NavBarViewModel nbViewModel, SettingViewModel stViewModel, 
-            FlytabViewModel flViewModel)
+            FlytabViewModel flViewModel, VehicleManagerViewModel vhManagerViewModel)
         {
             _nbViewModel = nbViewModel;
             _stViewModel = stViewModel;
             _flytabViewModel = flViewModel;
+            _vhManagerViewModel = vhManagerViewModel;
             _nbViewModel.SelectTabEvent += HandleSelectTab;
             _stViewModel.ConnectVehicle += new DelegateConnectVehicle(HandleConnectVehicle);
             _flytabViewModel.IsShow = true;
@@ -61,7 +62,7 @@ namespace GCS_LAB411.ViewModels
 
         private void HandleConnectVehicle(GCS_Com _mycom)
         {
-            _vhViewModel = new VehicleViewModel(_mycom);
+            _vhManagerViewModel.ConnectToVehicle(_mycom);
         }
     }
 }

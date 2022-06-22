@@ -133,6 +133,31 @@ namespace GCS_Comunication.Comunication
                     break;
             }
         }
+        public void Dispose()
+        {
+            _connect?.DoDisconnect();
+            _connect = null;
+
+            //kill thread
+
+            _parsingThread?.Abort();
+            _sendingThread?.Abort();
+            _receivingThread?.Abort();
+
+            _parsingThread?.Join();
+            _sendingThread?.Join();
+            _receivingThread?.Join();
+
+            _sendingThread = null;
+            _parsingThread = null;
+            _receivingThread = null;
+
+            _sendQueue?.Dispose();
+            _recvQueue?.Dispose();
+            _sendQueue = null;
+            _recvQueue = null;
+        }
+
         private void OnReceivedState(byte[] data)
         {
             Uavlink_msg_state_t state = new Uavlink_msg_state_t();

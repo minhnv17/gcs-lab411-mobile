@@ -24,7 +24,7 @@
                             <Label Text="{Binding Attitude}" Style="{StaticResource lable-style}"/>
                         </StackLayout>
                         <Label Text="Attitude(m)" Style="{StaticResource lable-style}"/>
-                        <Label Text="{Binding Attitude}" Style="{StaticResource lable-style}"/>
+                        <Label Text="{Binding VehicleViewModel.TelemetryMSG.Battery}" Style="{StaticResource lable-style}"/>
                         <Label Text="GroundSpeed(m/s)" Style="{StaticResource lable-style}"/>
                         <Label Text="{Binding Attitude}" Style="{StaticResource lable-style}"/>
                         <Label Text="PositionX(m)" Style="{StaticResource lable-style}"/>

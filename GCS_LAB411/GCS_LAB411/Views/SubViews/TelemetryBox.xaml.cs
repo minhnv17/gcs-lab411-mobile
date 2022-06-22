@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Microsoft.Extensions.DependencyInjection;
+using GCS_LAB411.ViewModels;
 
 namespace GCS_LAB411.Views.SubViews
 {
@@ -15,6 +17,7 @@ namespace GCS_LAB411.Views.SubViews
         public TelemetryBox()
         {
             InitializeComponent();
+            this.BindingContext = App.ServiceProvider.GetRequiredService<MainViewModel>();
         }
     }
 }

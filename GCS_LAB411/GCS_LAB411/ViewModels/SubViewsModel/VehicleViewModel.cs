@@ -14,34 +14,44 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
     public class VehicleViewModel : BaseViewModel
     {
         private GCS_Com _com;
-        public Telemetry telemetry { get; set; }
+        public Telemetry TelemetryMSG { get; set; }
 
-        public VehicleViewModel(GCS_Com com)
+        public VehicleViewModel()
         {
-            _com = com;
-            telemetry = new Telemetry();
-            _com.StateChanged += new DelegateState(handleStateChanged);
-            _com.LocalPosChanged += new DelegateLocalPos(handleLocalPosChanged);
+            TelemetryMSG = new Telemetry();
         }
 
         ~VehicleViewModel()
         {
-            _com = null;
+            TelemetryMSG = null;
         }
 
         private void handleStateChanged(Uavlink_msg_state_t message)
         {
-            telemetry.Arm = message.Armed == 0 ? false : true;
-            telemetry.Connected = message.Connected == 0 ? false : true;
-            telemetry.CurMode = (Telemetry.Mode)message.Mode;
-            telemetry.Battery = message.Battery;
+            TelemetryMSG.Arm = message.Armed == 0 ? false : true;
+            TelemetryMSG.Connected = message.Connected == 0 ? false : true;
+            TelemetryMSG.CurMode = (Telemetry.Mode)message.Mode;
+            TelemetryMSG.Battery = message.Battery;
         }
 
         private void handleLocalPosChanged(Uavlink_msg_local_position_t message)
         {
-            telemetry.PositionStatus = true;
-            telemetry.PositionX = message.PosX;
-            telemetry.PositionY = message.PosY;
+            TelemetryMSG.PositionStatus = true;
+            TelemetryMSG.PositionX = message.PosX;
+            TelemetryMSG.PositionY = message.PosY;
+        }
+
+        public void Connect(GCS_Com com)
+        {
+            _com = com;
+            _com.StateChanged += new DelegateState(handleStateChanged);
+            _com.LocalPosChanged += new DelegateLocalPos(handleLocalPosChanged);
+        }
+
+        public void DisConnect()
+        {
+            _com.Dispose();
+            TelemetryMSG = null;
         }
     }
 }

@@ -6,7 +6,7 @@ using VTGCS_WPF.Models;
 
 namespace GCS_LAB411.Models
 {
-    public class Telemetry : BaseViewModel
+    public class Telemetry : PropertyChangedBase
     {
         public enum Mode
         {
@@ -20,8 +20,8 @@ namespace GCS_LAB411.Models
         private bool _connected = false;
         public bool Connected
         {
-            get => _connected;
-            set => SetProperty(ref _connected, value);
+            get { return _connected; }
+            set { SetProperty(ref _connected, value); }
         }
 
         private bool _arm = false;

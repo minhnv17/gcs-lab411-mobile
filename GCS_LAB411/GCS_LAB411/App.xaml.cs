@@ -50,6 +50,7 @@ namespace GCS_LAB411
             services.AddSingleton<SettingViewModel>();
             services.AddSingleton<FlytabViewModel>();
             services.AddSingleton<NavBarViewModel>();
+            services.AddSingleton<VehicleManagerViewModel>();
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<SlideConfirmViewModel>();
 
