@@ -12,7 +12,7 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
-        <Frame>
+        <Frame BindingContext="{Binding VehicleManagerViewModel.Vehicle}">
             <StackLayout Orientation="Vertical">
                 <Frame HeightRequest="21" Padding="0">
                     <Label Text="Telemetry" TextColor="Black" FontSize="12" Style="{StaticResource lable-style}"/>
@@ -21,20 +21,19 @@
                     <StackLayout Orientation="Vertical">
                         <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                             <Label Text="GPS/Position Status: " Style="{StaticResource lable-style}"/>
-                            <Label Text="{Binding Attitude}" Style="{StaticResource lable-style}"/>
+                            <Label Text="{Binding TelemetryMSG.PositionStatus}" Style="{StaticResource lable-style}"/>
                         </StackLayout>
                         <Label Text="Attitude(m)" Style="{StaticResource lable-style}"/>
-                        <Label Text="{Binding VehicleViewModel.TelemetryMSG.Battery}" Style="{StaticResource lable-style}"/>
+                        <Label Text="{Binding TelemetryMSG.Altitude}" Style="{StaticResource lable-style}"/>
                         <Label Text="GroundSpeed(m/s)" Style="{StaticResource lable-style}"/>
-                        <Label Text="{Binding Attitude}" Style="{StaticResource lable-style}"/>
+                        <Label Text="{Binding TelemetryMSG.GroundSpeed}" Style="{StaticResource lable-style}"/>
                         <Label Text="PositionX(m)" Style="{StaticResource lable-style}"/>
-                        <Label Text="{Binding Attitude}" Style="{StaticResource lable-style}"/>
+                        <Label Text="{Binding TelemetryMSG.PositionX}" Style="{StaticResource lable-style}"/>
                         <Label Text="PositionY(m)" Style="{StaticResource lable-style}"/>
-                        <Label Text="{Binding Attitude}" Style="{StaticResource lable-style}"/>
+                        <Label Text="{Binding TelemetryMSG.PositionY}" Style="{StaticResource lable-style}"/>
                     </StackLayout>
                 </ScrollView>
             </StackLayout>
-
 
             <Frame.Style>
                 <Style TargetType="Frame">
