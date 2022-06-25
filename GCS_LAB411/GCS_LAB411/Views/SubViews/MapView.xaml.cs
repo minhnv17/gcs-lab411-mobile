@@ -12,12 +12,12 @@ using GCS_LAB411.ViewModels.SubViewsModel;
 namespace GCS_LAB411.Views.SubViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Flytab : ContentView
+    public partial class MapView : ContentView
     {
-        public Flytab()
+        public MapView()
         {
             InitializeComponent();
-            this.BindingContext = App.ServiceProvider.GetRequiredService<FlytabViewModel>();
+            this.BindingContext = App.ServiceProvider.GetRequiredService<MapViewModel>();
         }
     }
 }

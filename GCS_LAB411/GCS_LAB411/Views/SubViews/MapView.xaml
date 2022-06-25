@@ -1,14 +1,21 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:subviews="clr-namespace:GCS_LAB411.Views.SubViews"
-             x:Class="GCS_LAB411.Views.SubViews.Flytab">
+             x:Class="GCS_LAB411.Views.SubViews.MapView">
     <ContentView.Content>
-        <!--Telemetry box view-->
-        <subviews:TelemetryBox HeightRequest="160" 
-                               WidthRequest="150" 
-                               VerticalOptions="End" 
-                               HorizontalOptions="End"
-                               Margin="24"/>
+        <Grid>
+            <Label Text="Hello Xamarin.Forms!" Margin="90" BackgroundColor="red">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding tabtab}"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <!--Telemetry box view-->
+            <subviews:TelemetryBox HeightRequest="160" 
+                                   WidthRequest="150" 
+                                   VerticalOptions="End" 
+                                   HorizontalOptions="End"
+                                   Margin="24"/>
+        </Grid>
     </ContentView.Content>
     <ContentView.Style>
         <Style TargetType="ContentView">

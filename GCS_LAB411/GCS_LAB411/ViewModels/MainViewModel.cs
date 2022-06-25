@@ -21,8 +21,8 @@ namespace GCS_LAB411.ViewModels
 
         private NavBarViewModel _nbViewModel;
         private SettingViewModel _stViewModel;
-        private FlytabViewModel _flytabViewModel;
         private VehicleManagerViewModel _vhManagerViewModel;
+        private MapViewModel _mapViewModel;
 
         public NavBarViewModel NavBarViewModel
         {
@@ -34,15 +34,15 @@ namespace GCS_LAB411.ViewModels
         }
 
         public MainViewModel(NavBarViewModel nbViewModel, SettingViewModel stViewModel, 
-            FlytabViewModel flViewModel, VehicleManagerViewModel vhManagerViewModel)
+            MapViewModel mapViewModel, VehicleManagerViewModel vhManagerViewModel)
         {
             _nbViewModel = nbViewModel;
             _stViewModel = stViewModel;
-            _flytabViewModel = flViewModel;
+            _mapViewModel = mapViewModel;
             _vhManagerViewModel = vhManagerViewModel;
             _nbViewModel.SelectTabEvent += HandleSelectTab;
             _stViewModel.ConnectVehicle += new DelegateConnectVehicle(HandleConnectVehicle);
-            _flytabViewModel.IsShow = true;
+            _mapViewModel.IsShow = true;
         }
 
         private void HandleSelectTab(int index)
@@ -50,12 +50,12 @@ namespace GCS_LAB411.ViewModels
             SelectedTabIndex = index;
             if(index == 1) // Fly tab 
             {
-                _flytabViewModel.IsShow = true;
+                _mapViewModel.IsShow = true;
                 _stViewModel.IsShow = false;
             }
             if(index == 0) // Setting tab
             {
-                _flytabViewModel.IsShow = false;
+                _mapViewModel.IsShow = false;
                 _stViewModel.IsShow = true;
             }    
         }

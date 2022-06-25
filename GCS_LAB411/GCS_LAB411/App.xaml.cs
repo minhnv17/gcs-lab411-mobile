@@ -48,10 +48,10 @@ namespace GCS_LAB411
             //// Register all ViewModels.
             services.AddSingleton<MainPage>();
             services.AddSingleton<SettingViewModel>();
-            services.AddSingleton<FlytabViewModel>();
             services.AddSingleton<NavBarViewModel>();
             services.AddSingleton<VehicleManagerViewModel>();
             services.AddSingleton<MainViewModel>();
+            services.AddSingleton<MapViewModel>();
             services.AddSingleton<SlideConfirmViewModel>();
 
         }

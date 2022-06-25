@@ -8,21 +8,28 @@ using System.Threading.Tasks;
 
 namespace GCS_LAB411.ViewModels.SubViewsModel
 {
-    public class FlytabViewModel : BaseViewModel
+    public class MapViewModel : BaseViewModel
     {
-        private bool _isShow = false;
+        private SlideConfirmViewModel _scViewModel;
+        public Command tabtab { get; set; }
+        public PilotCommand FlytoCommand { get; set; }
+        public MapViewModel(SlideConfirmViewModel scViewModel)
+        {
+            tabtab = new Command(HandleTabtab);
+            _scViewModel = scViewModel;
+            FlytoCommand = new PilotCommand(this, scViewModel);
+        }
+
+        private void HandleTabtab(object obj)
+        {
+            Console.WriteLine("aaaaaa");
+        }
+
+        private bool _isShow = true;
         public bool IsShow
         {
             get => _isShow;
             set => SetProperty(ref _isShow, value);
-        }
-
-        public PilotCommand FlytoCommand { get; set; }
-        private SlideConfirmViewModel _scViewModel;
-        public FlytabViewModel(SlideConfirmViewModel scViewModel)
-        {
-            _scViewModel = scViewModel;
-            FlytoCommand = new PilotCommand(this, scViewModel);
         }
 
         public async Task<Tuple<bool, string>> FlytoAction()
