@@ -3,19 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:subviews="clr-namespace:GCS_LAB411.Views.SubViews"
              x:Class="GCS_LAB411.Views.SubViews.MapView">
     <ContentView.Content>
-        <Grid>
-            <Label Text="Hello Xamarin.Forms!" Margin="90" BackgroundColor="red">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding tabtab}"/>
-                </Label.GestureRecognizers>
-            </Label>
+        <AbsoluteLayout>
+            <Image x:Name="map" Source="mymap.png" AbsoluteLayout.LayoutBounds="100, 100" BackgroundColor="red"/>
+            <Image x:Name="waypoint" Source="waypoint.png" WidthRequest="30" HeightRequest="30"/>
             <!--Telemetry box view-->
-            <subviews:TelemetryBox HeightRequest="160" 
-                                   WidthRequest="150" 
-                                   VerticalOptions="End" 
-                                   HorizontalOptions="End"
-                                   Margin="24"/>
-        </Grid>
+            <subviews:TelemetryBox x:Name="telemetrybox"
+                                   WidthRequest="150"
+                                   HeightRequest="160"
+                                   AbsoluteLayout.LayoutBounds="450, 170"/>
+            <AbsoluteLayout.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"
+                                      ></PanGestureRecognizer>
+            </AbsoluteLayout.GestureRecognizers>
+        </AbsoluteLayout>
     </ContentView.Content>
     <ContentView.Style>
         <Style TargetType="ContentView">

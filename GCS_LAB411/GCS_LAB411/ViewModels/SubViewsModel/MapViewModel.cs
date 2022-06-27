@@ -11,18 +11,13 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
     public class MapViewModel : BaseViewModel
     {
         private SlideConfirmViewModel _scViewModel;
-        public Command tabtab { get; set; }
         public PilotCommand FlytoCommand { get; set; }
+        public Command tabtab { get; set; }
         public MapViewModel(SlideConfirmViewModel scViewModel)
         {
-            tabtab = new Command(HandleTabtab);
             _scViewModel = scViewModel;
             FlytoCommand = new PilotCommand(this, scViewModel);
-        }
-
-        private void HandleTabtab(object obj)
-        {
-            Console.WriteLine("aaaaaa");
+            tabtab = new Command(HandleTab);
         }
 
         private bool _isShow = true;
@@ -32,6 +27,11 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             set => SetProperty(ref _isShow, value);
         }
 
+        private void HandleTab(object obj)
+        {
+            Console.WriteLine("test");
+            Console.WriteLine(obj);
+        }
         public async Task<Tuple<bool, string>> FlytoAction()
         {
             return await Task.FromResult(Tuple.Create(false, ""));
