@@ -67,8 +67,15 @@ namespace GCS_LAB411.Commands
                             Console.WriteLine("DoFlyTo");
                             break;
 
+                        case "DoTakeOff":
+                            Console.WriteLine("DoTakeoff");
+                            break;
                         case "DoArm":
                             Console.WriteLine("DoARM");
+                            break;
+
+                        case "DoRTL":
+                            Console.WriteLine("RTL");
                             break;
                         default: 
                             break;

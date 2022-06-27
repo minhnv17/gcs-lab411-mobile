@@ -11,12 +11,12 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
     public class MapViewModel : BaseViewModel
     {
         private SlideConfirmViewModel _scViewModel;
-        public PilotCommand FlytoCommand { get; set; }
+        public PilotCommand AutoPilotCommand { get; set; }
         public Command tabtab { get; set; }
         public MapViewModel(SlideConfirmViewModel scViewModel)
         {
             _scViewModel = scViewModel;
-            FlytoCommand = new PilotCommand(this, scViewModel);
+            AutoPilotCommand = new PilotCommand(this, scViewModel);
             tabtab = new Command(HandleTab);
         }
 

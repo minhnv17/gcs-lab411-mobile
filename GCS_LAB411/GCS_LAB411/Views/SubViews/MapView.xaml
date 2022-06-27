@@ -6,6 +6,10 @@
         <AbsoluteLayout>
             <Image x:Name="map" Source="mymap.png" AbsoluteLayout.LayoutBounds="100, 100" BackgroundColor="red"/>
             <Image x:Name="waypoint" Source="waypoint.png" WidthRequest="30" HeightRequest="30"/>
+            
+            <!--Command box view-->
+            <subviews:CommandBox x:Name="commandbox"
+                                 AbsoluteLayout.LayoutBounds="20, 70"/>
             <!--Telemetry box view-->
             <subviews:TelemetryBox x:Name="telemetrybox"
                                    WidthRequest="150"
