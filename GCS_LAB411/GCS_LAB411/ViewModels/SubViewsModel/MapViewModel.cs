@@ -11,11 +11,13 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
     public class MapViewModel : BaseViewModel
     {
         private SlideConfirmViewModel _scViewModel;
+        private VehicleManagerViewModel _vhManagerViewModel;
         public PilotCommand AutoPilotCommand { get; set; }
         public Command tabtab { get; set; }
-        public MapViewModel(SlideConfirmViewModel scViewModel)
+        public MapViewModel(SlideConfirmViewModel scViewModel, VehicleManagerViewModel vhManagerViewModel)
         {
             _scViewModel = scViewModel;
+            _vhManagerViewModel = vhManagerViewModel;
             AutoPilotCommand = new PilotCommand(this, scViewModel);
             tabtab = new Command(HandleTab);
         }
@@ -34,7 +36,13 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
         }
         public async Task<Tuple<bool, string>> FlytoAction()
         {
+            
             return await Task.FromResult(Tuple.Create(false, ""));
+        }
+
+        public async Task<Tuple<bool, string>> Takeoff(float altitude)
+        {
+            return await _vhManagerViewModel.Vehicle.Takeoff(altitude);
         }
     }
 }

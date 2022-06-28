@@ -88,9 +88,9 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
 
                 IsShow = false;
                 if (_res == ButtonReturn.Cancel)
-                    return Tuple.Create<bool, int>(false, initValue);
+                    return Tuple.Create<bool, int>(false, _outValue);
                 else
-                    return Tuple.Create<bool, int>(true, initValue);
+                    return Tuple.Create<bool, int>(true, _outValue);
             };
 
             var task = new Task<Tuple<bool, int>>(waitConfirm);

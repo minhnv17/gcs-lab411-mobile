@@ -7,6 +7,7 @@ using MvvmHelpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using static GCS_Comunication.Comunication.GCS_Com;
 
 namespace GCS_LAB411.ViewModels.SubViewsModel
@@ -24,6 +25,11 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
         ~VehicleViewModel()
         {
             TelemetryMSG = null;
+        }
+
+        public async Task<Tuple<bool, string>> Takeoff(float altitude)
+        {
+            return await _com.SendCommandTakeoff(altitude);
         }
 
         private void handleStateChanged(Uavlink_msg_state_t message)

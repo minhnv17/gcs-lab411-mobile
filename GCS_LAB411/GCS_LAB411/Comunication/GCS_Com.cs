@@ -1,5 +1,6 @@
 ﻿using GCS_Comunication.Protocol;
 using GCS_Comunication.Protocol.Uavlink;
+using GCS_LAB411.Protocol.Command;
 using GCS_LAB411.Protocol.Uavlink;
 using System;
 using System.Collections.Concurrent;
@@ -177,6 +178,37 @@ namespace GCS_Comunication.Comunication
             Uavlink_msg_local_position_t tele = new Uavlink_msg_local_position_t();
             tele.Decode(data);
             LocalPosChanged?.Invoke(tele);
+        }
+
+        public Task<Tuple<bool, string>> SendCommandTakeoff(float altitude)
+        {
+            Func<Tuple<bool, string>> sendCommand = () =>
+            {
+                Tuple<bool, string> resAnswers = new Tuple<bool, string>(false, null);
+                byte[] takeoff_data, message_pack;
+
+                Uavlink_cmd_takeoff_t takeoffcmd = new Uavlink_cmd_takeoff_t();
+                takeoffcmd.Altitude = altitude;
+                takeoffcmd.Encode(out takeoff_data);
+
+                Uavlink_message_t message = new Uavlink_message_t();
+                message.Msgid = MessageId.UAVLINK_MSG_ID_COMMAND;
+                message.LenPayload = (sbyte)takeoff_data.Length;
+                message.Payload = takeoff_data;
+                message.Encode(out message_pack);
+
+                SendMessage(message);
+                resAnswers = Tuple.Create(true, "send command ok");
+                return resAnswers;
+            };
+            var task = new Task<Tuple<bool, string>>(sendCommand);
+            task.Start();
+            return task;
+        }
+
+        private void SendMessage(Uavlink_message_t message)
+        {
+            _sendQueue.Add(message);
         }
     }
 }

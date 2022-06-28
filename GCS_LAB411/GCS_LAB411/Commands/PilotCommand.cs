@@ -47,7 +47,7 @@ namespace GCS_LAB411.Commands
                 switch(actionType)
                 {
                     case "DoTakeOff":
-                        initValue = 1;
+                        initValue = 1; // Default take off
                         break;
                     default:
                         break;
@@ -69,6 +69,7 @@ namespace GCS_LAB411.Commands
 
                         case "DoTakeOff":
                             Console.WriteLine("DoTakeoff");
+                            answer = await (_parent as MapViewModel).Takeoff(outValue);
                             break;
                         case "DoArm":
                             Console.WriteLine("DoARM");
