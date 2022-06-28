@@ -13,6 +13,14 @@ namespace GCS_Comunication.Protocol
         UAVLINK_MSG_ID_LOCAL_POSITION = 0x03,
         UAVLINK_MSG_ID_COMMAND = 0x04
     }
+
+    public enum CommandId : int
+    {
+        UAV_CMD_TAKEOFF = 22,
+        UAV_CMD_ARM = 23,
+        UAV_CMD_LAND = 24,
+        UAV_CMD_FLYTO = 25
+    }
     public class Uavlink_message_t
     {
         
