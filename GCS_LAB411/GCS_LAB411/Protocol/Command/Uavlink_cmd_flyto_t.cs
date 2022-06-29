@@ -17,11 +17,11 @@ namespace GCS_LAB411.Protocol.Command
 
         public void Encode(out byte[] _data)
         {
-            byte[] data = new byte[9];
+            byte[] data = new byte[7];
             int index = 0;
 
-            BitConverter.GetBytes((int)CommandId.UAV_CMD_FLYTO).CopyTo(data, index);
-            BitConverter.GetBytes(AllWP).CopyTo(data, index += 4);
+            BitConverter.GetBytes((UInt16)CommandId.UAVLINK_CMD_FLYTO).CopyTo(data, index);
+            BitConverter.GetBytes(AllWP).CopyTo(data, index += 2);
             BitConverter.GetBytes(WPId).CopyTo(data, index += 1);
             _data = data;
         }

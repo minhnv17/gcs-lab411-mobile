@@ -29,6 +29,8 @@ namespace GCS_Comunication.Comunication
         private Thread _parsingThread;
         private Thread _sendingThread;
 
+        private Thread _manualControl;
+
         private BlockingCollection<Uavlink_message_t> _sendQueue;
         private BlockingCollection<byte[]> _recvQueue;
 
@@ -48,9 +50,13 @@ namespace GCS_Comunication.Comunication
             _sendQueue = new BlockingCollection<Uavlink_message_t>();
             _recvQueue = new BlockingCollection<byte[]>();
 
+            _manualControl = new Thread(new ThreadStart(HandleSendManualControl));
+            _manualControl.IsBackground = true;
+
             _receivingThread.Start();
             _parsingThread.Start();
             _sendingThread.Start();
+            //_manualControl.Start();
         }
 
         private void ReceivingThreadFunction()
@@ -204,6 +210,29 @@ namespace GCS_Comunication.Comunication
             var task = new Task<Tuple<bool, string>>(sendCommand);
             task.Start();
             return task;
+        }
+
+        private void HandleSendManualControl()
+        {
+            Uavlink_msg_manual_control_t manual_msg = new Uavlink_msg_manual_control_t();
+            manual_msg.x = 500;
+            manual_msg.y = 0;
+            manual_msg.z = 0;
+            manual_msg.r = 0;
+
+            byte[] manual_pack;
+            manual_msg.Encode(out manual_pack);
+
+            Uavlink_message_t message = new Uavlink_message_t();
+            message.Msgid = MessageId.UAVLINK_MSG_ID_MANUAL_CONTROL;
+            message.LenPayload = (sbyte)manual_pack.Length;
+            message.Payload = manual_pack;
+
+            while (true)
+            {
+                SendMessage(message);
+                Thread.Sleep(100);
+            }
         }
 
         private void SendMessage(Uavlink_message_t message)

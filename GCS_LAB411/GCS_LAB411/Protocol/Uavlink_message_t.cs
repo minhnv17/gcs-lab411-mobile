@@ -11,15 +11,17 @@ namespace GCS_Comunication.Protocol
         UAVLINK_MSG_ID_STATE = 0x01,
         UAVLINK_MSG_ID_GLOBAL_POSITION = 0x02,
         UAVLINK_MSG_ID_LOCAL_POSITION = 0x03,
-        UAVLINK_MSG_ID_COMMAND = 0x04
+        UAVLINK_MSG_SETWP = 0x04,
+        UAVLINK_MSG_ID_COMMAND = 0x05,
+        UAVLINK_MSG_ID_MANUAL_CONTROL = 0x06
     }
 
-    public enum CommandId : int
+    public enum CommandId : UInt16
     {
-        UAV_CMD_TAKEOFF = 22,
-        UAV_CMD_ARM = 23,
-        UAV_CMD_LAND = 24,
-        UAV_CMD_FLYTO = 25
+        UAVLINK_CMD_TAKEOFF = 22,
+        UAVLINK_CMD_ARM = 23,
+        UAVLINK_CMD_LAND = 24,
+        UAVLINK_CMD_FLYTO = 25
     }
     public class Uavlink_message_t
     {
