@@ -37,8 +37,8 @@ namespace GCS_Comunication.Comunication
                 try
                 {
                     _udpClient.Connect(_serverEP);
-                    _udpClient.Send(data, data.Length);
                     _isOpen = true;
+                    SendData(data);
                 }
                 catch (Exception ex)
                 {

@@ -29,7 +29,11 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
 
         public async Task<Tuple<bool, string>> Takeoff(float altitude)
         {
-            return await _com.SendCommandTakeoff(altitude);
+            if(_com != null)
+            {
+                return await _com.SendCommandTakeoff(altitude);
+            }
+            return Tuple.Create(false, "NO COMLINK, CHECK CONNECTION");
         }
 
         private void handleStateChanged(Uavlink_msg_state_t message)
