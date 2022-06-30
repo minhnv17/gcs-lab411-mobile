@@ -8,7 +8,7 @@ namespace GCS_LAB411.Protocol.Uavlink
     {
         private float _posX;
         private float _posY;
-        private float _posz;
+        private float _posZ;
         private float _vx;
         private float _vy;
         private float _vz;
@@ -24,10 +24,10 @@ namespace GCS_LAB411.Protocol.Uavlink
             get { return _posY; }
             set { this._posY = value; }
         }
-        public float _Posz
+        public float PosZ
         {
-            get { return _posz; }
-            set { this._posz = value; }
+            get { return _posZ; }
+            set { this._posZ = value; }
         }
         public float Vx
         {
@@ -49,12 +49,12 @@ namespace GCS_LAB411.Protocol.Uavlink
         {
             int index = 0;
 
-            _posX = (float)BitConverter.ToDouble(data, index);
-            _posY = (float)BitConverter.ToDouble(data, index += 4);
-            _posz = (float)BitConverter.ToDouble(data, index += 4);
-            _vx = (float)BitConverter.ToDouble(data, index += 4);
-            _vy = (float)BitConverter.ToDouble(data, index += 4);
-            _vz = (float)BitConverter.ToDouble(data, index += 4);
+            _posX = (float)BitConverter.ToInt16(data, index) / 1000.0f;
+            _posY = (float)BitConverter.ToInt16(data, index += 2) / 1000.0f;
+            _posZ = (float)BitConverter.ToInt16(data, index += 2) / 1000.0f;
+            _vx = (float)BitConverter.ToInt16(data, index += 2) / 100.0f;
+            _vy = (float)BitConverter.ToInt16(data, index += 2) / 100.0f;
+            _vz = (float)BitConverter.ToInt16(data, index += 2) / 100.0f;
         }
     }
 }

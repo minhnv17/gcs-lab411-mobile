@@ -128,6 +128,19 @@ namespace GCS_LAB411.Models
             }
         }
 
+        private float _positionZ = 0;
+        public float PositionZ
+        {
+            get
+            {
+                return _positionZ;
+            }
+            set
+            {
+                SetProperty(ref _positionZ, value);
+            }
+        }
+
         private double _latitude = 0;
         public double Latitude
         {

@@ -57,6 +57,7 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             TelemetryMSG.PositionStatus = true;
             TelemetryMSG.PositionX = message.PosX;
             TelemetryMSG.PositionY = message.PosY;
+            TelemetryMSG.PositionZ = message.PosZ;
         }
 
         public void Connect(GCS_Com com)

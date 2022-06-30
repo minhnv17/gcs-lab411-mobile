@@ -23,7 +23,7 @@
                             <Label Text="GPS/Position Status: " Style="{StaticResource lable-style}"/>
                             <Label Text="{Binding TelemetryMSG.PositionStatus}" Style="{StaticResource lable-style}"/>
                         </StackLayout>
-                        <Label Text="Attitude(m)" Style="{StaticResource lable-style}"/>
+                        <Label Text="Altitude(m)" Style="{StaticResource lable-style}"/>
                         <Label Text="{Binding TelemetryMSG.Altitude}" Style="{StaticResource lable-style}"/>
                         
                         <Label Text="GroundSpeed(m/s)" Style="{StaticResource lable-style}"/>
@@ -40,6 +40,9 @@
                         
                         <Label Text="PositionY(m)" Style="{StaticResource lable-style}"/>
                         <Label Text="{Binding TelemetryMSG.PositionY}" Style="{StaticResource lable-style}"/>
+
+                        <Label Text="PositionZ(m)" Style="{StaticResource lable-style}"/>
+                        <Label Text="{Binding TelemetryMSG.PositionZ}" Style="{StaticResource lable-style}"/>
                     </StackLayout>
                 </ScrollView>
             </StackLayout>
