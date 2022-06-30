@@ -44,6 +44,14 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             TelemetryMSG.Battery = message.Battery;
         }
 
+        private void handleGlobalPosChanged(Uavlink_msg_global_position_t message)
+        {
+            TelemetryMSG.PositionStatus = true;
+            TelemetryMSG.Latitude = message.Lat;
+            TelemetryMSG.Longitude = message.Lon;
+            TelemetryMSG.Altitude = message.Alt;
+        }
+
         private void handleLocalPosChanged(Uavlink_msg_local_position_t message)
         {
             TelemetryMSG.PositionStatus = true;
@@ -56,6 +64,7 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             _com = com;
             _com.StateChanged += new DelegateState(handleStateChanged);
             _com.LocalPosChanged += new DelegateLocalPos(handleLocalPosChanged);
+            _com.GlobalPosChanged += new DelegateGlobalPos(handleGlobalPosChanged);
         }
 
         public void DisConnect()

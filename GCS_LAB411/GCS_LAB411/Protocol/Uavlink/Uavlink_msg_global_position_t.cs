@@ -51,12 +51,12 @@ namespace GCS_Comunication.Protocol.Uavlink
         {
             int index = 0;
 
-            _lat = BitConverter.ToDouble(data, index);
-            _lon = BitConverter.ToDouble(data, index += 4);
-            _alt = (float)BitConverter.ToDouble(data, index += 4);
-            _vx = (float)BitConverter.ToDouble(data, index += 4);
-            _vy = (float)BitConverter.ToDouble(data, index += 4);
-            _vz = (float)BitConverter.ToDouble(data, index += 4);
+            _lat = (double)BitConverter.ToInt32(data, index) / 10000000.0f;
+            _lon = (double)BitConverter.ToInt32(data, index += 4) / 10000000.0f;
+            _alt = (float)BitConverter.ToInt16(data, index += 4) / 100.0f;
+            _vx = (float)BitConverter.ToInt16(data, index += 2) / 100.0f;
+            _vy = (float)BitConverter.ToInt16(data, index += 2) / 100.0f;
+            _vz = (float)BitConverter.ToInt16(data, index += 2) / 100.0f;
         }
     }
 }

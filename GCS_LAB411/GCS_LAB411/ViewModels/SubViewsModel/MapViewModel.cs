@@ -12,6 +12,10 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
     {
         private SlideConfirmViewModel _scViewModel;
         private VehicleManagerViewModel _vhManagerViewModel;
+        public VehicleManagerViewModel VehicleManagerViewModel
+        {
+            get => _vhManagerViewModel;
+        }
         public PilotCommand AutoPilotCommand { get; set; }
         public Command tabtab { get; set; }
         public MapViewModel(SlideConfirmViewModel scViewModel, VehicleManagerViewModel vhManagerViewModel)

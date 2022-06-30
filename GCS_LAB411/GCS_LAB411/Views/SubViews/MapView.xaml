@@ -14,7 +14,8 @@
             <subviews:TelemetryBox x:Name="telemetrybox"
                                    WidthRequest="150"
                                    HeightRequest="160"
-                                   AbsoluteLayout.LayoutBounds="450, 170"/>
+                                   AbsoluteLayout.LayoutBounds="450, 170"
+                                   BindingContext="{Binding VehicleManagerViewModel.Vehicle}"/>
             <AbsoluteLayout.GestureRecognizers>
                 <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"
                                       ></PanGestureRecognizer>

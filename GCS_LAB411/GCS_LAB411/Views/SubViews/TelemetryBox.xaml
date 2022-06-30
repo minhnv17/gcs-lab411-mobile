@@ -12,7 +12,7 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
-        <Frame BindingContext="{Binding VehicleManagerViewModel.Vehicle}">
+        <Frame>
             <StackLayout Orientation="Vertical">
                 <Frame HeightRequest="21" Padding="0">
                     <Label Text="Telemetry" TextColor="Black" FontSize="12" Style="{StaticResource lable-style}"/>
@@ -25,10 +25,19 @@
                         </StackLayout>
                         <Label Text="Attitude(m)" Style="{StaticResource lable-style}"/>
                         <Label Text="{Binding TelemetryMSG.Altitude}" Style="{StaticResource lable-style}"/>
+                        
                         <Label Text="GroundSpeed(m/s)" Style="{StaticResource lable-style}"/>
                         <Label Text="{Binding TelemetryMSG.GroundSpeed}" Style="{StaticResource lable-style}"/>
+                        
+                        <Label Text="Latitude" Style="{StaticResource lable-style}"/>
+                        <Label Text="{Binding TelemetryMSG.Latitude}" Style="{StaticResource lable-style}"/>
+                        
+                        <Label Text="Longitude" Style="{StaticResource lable-style}"/>
+                        <Label Text="{Binding TelemetryMSG.Longitude}" Style="{StaticResource lable-style}"/>
+                        
                         <Label Text="PositionX(m)" Style="{StaticResource lable-style}"/>
                         <Label Text="{Binding TelemetryMSG.PositionX}" Style="{StaticResource lable-style}"/>
+                        
                         <Label Text="PositionY(m)" Style="{StaticResource lable-style}"/>
                         <Label Text="{Binding TelemetryMSG.PositionY}" Style="{StaticResource lable-style}"/>
                     </StackLayout>
