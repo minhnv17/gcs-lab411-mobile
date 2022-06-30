@@ -53,7 +53,7 @@ namespace GCS_LAB411
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<MapViewModel>();
             services.AddSingleton<SlideConfirmViewModel>();
-
+            services.AddSingleton<CameraLiveViewModel>();
         }
 
         protected override void OnStart()

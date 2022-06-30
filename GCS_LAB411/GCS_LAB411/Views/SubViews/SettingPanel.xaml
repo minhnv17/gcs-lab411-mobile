@@ -34,9 +34,21 @@
         <!--Setting general layout-->
             <StackLayout Orientation="Vertical" Padding="20" HorizontalOptions="FillAndExpand">
                 <StackLayout Orientation="Vertical">
-                    <Label Text="General"></Label>
-                    <Frame BackgroundColor="#A9A9A9">
-
+                    <Label Text="Fly View"></Label>
+                    <Frame BackgroundColor="#A9A9A9" Padding="0">
+                        <StackLayout Orientation="Vertical">
+                            <Label Text="Live stream setting" HorizontalOptions="Center"/>
+                            <StackLayout Orientation="Horizontal" Padding="20, 0">
+                                <Label Text="Enable" FontSize="15" VerticalOptions="Center"/>
+                                <CheckBox IsChecked="{Binding IsLiveEnable}"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" Padding="20, 0">
+                                <Label Text="Source" FontSize="15" VerticalOptions="Center"/>
+                                <Entry WidthRequest="300" Text="{Binding VideoSource, Mode=TwoWay}" 
+                                       ReturnCommand="{Binding CompletedVideoSourceCommand}"
+                                       ReturnType="Done"/>
+                            </StackLayout>
+                        </StackLayout>
                     </Frame>
                 </StackLayout>
                 <StackLayout Orientation="Vertical">

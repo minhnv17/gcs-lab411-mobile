@@ -10,7 +10,12 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
     public class SettingViewModel : BaseViewModel
     {
         public delegate void DelegateConnectVehicle(GCS_Com _mycom);
+        public delegate void DelegateEnableVideoStream(string videoSourde, bool enable);
+        public delegate void DelegateDisableVideoStream();
         public event DelegateConnectVehicle ConnectVehicle;
+        public event DelegateEnableVideoStream ConnectStreamEvent;
+        public event DelegateDisableVideoStream DisConnectStreamEvent;
+
         private bool _isShow = false;
         public bool IsShow
         {
@@ -39,6 +44,25 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             set => SetProperty(ref _port, value);
         }
 
+        private string _videoSource;
+        public string VideoSource
+        {
+            get => _videoSource;
+            set => SetProperty(ref _videoSource, value);
+        }
+
+        private bool _isLiveEnable;
+        public bool IsLiveEnable
+        {
+            get => _isLiveEnable;
+            set
+            {
+                SetProperty(ref _isLiveEnable, value);
+                if (value == true) ConnectStreamEvent?.Invoke(_videoSource, value);
+                else DisConnectStreamEvent?.Invoke();
+            }
+        }
+
         private Udp_Connect _myUdp;
         private GCS_Com _myCom;
         public GCS_Com MyCom
@@ -49,16 +73,17 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
         public Command SelectedTabCommand { get; set; }
         public Command ConnectCommand { get; set; }
         public Command DisConnectCommand { get; set; }
-        
+        public Command CompletedVideoSourceCommand { get; set; }
         public SettingViewModel()
         {
             SelectedTabCommand = new Command(HandleSelectedTabCommand);
             ConnectCommand = new Command(HandleConnectCommand);
             DisConnectCommand = new Command(HandleDisConnectCommand);
-
+            CompletedVideoSourceCommand = new Command(HandleCompletedSourceCommand);
             // Default
             HostName = "192.168.11.1";
             Port = 12345;
+            _videoSource = "http://192.168.0.122:8080/stream?topic=/main_camera/image_raw";
         }
 
         private void HandleSelectedTabCommand(object obj)
@@ -84,6 +109,11 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
         private void HandleDisConnectCommand(object obj)
         {
             _myUdp.DoDisconnect();
+        }
+
+        private void HandleCompletedSourceCommand(object obj)
+        {
+            if(_isLiveEnable) ConnectStreamEvent?.Invoke(_videoSource, _isLiveEnable);
         }
     }
 }

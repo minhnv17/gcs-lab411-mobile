@@ -6,7 +6,8 @@
              x:Class="GCS_LAB411.MainPage" >
 
     <Grid>
-        <!--map view-->
+
+            <!--map view-->
         <subviews:MapView></subviews:MapView>
         
         <!--Navbar view-->
@@ -17,6 +18,11 @@
 
         <!--Slide Confirm-->
         <subviews:SlideConfirm Margin="200,260,200,30"></subviews:SlideConfirm>
+        
+        <!--camera view-->
+        <subviews:CameraLive HeightRequest="120" Margin="20, 10"
+                             VerticalOptions="EndAndExpand" 
+                             HorizontalOptions="StartAndExpand"></subviews:CameraLive>
     </Grid>
 
 </ContentPage>
