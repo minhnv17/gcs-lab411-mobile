@@ -21,7 +21,8 @@ namespace GCS_Comunication.Protocol
         UAVLINK_CMD_TAKEOFF = 22,
         UAVLINK_CMD_ARM = 23,
         UAVLINK_CMD_LAND = 24,
-        UAVLINK_CMD_FLYTO = 25
+        UAVLINK_CMD_FLYTO = 25,
+        UAVLINK_CMD_SETMODE = 26
     }
     public class Uavlink_message_t
     {

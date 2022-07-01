@@ -26,6 +26,15 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
         {
         }
 
+        public void DoChangeMode(int mode)
+        {
+            if (_com != null)
+            {
+                _com.SendCommandSetMode(mode);
+            }
+            return;
+        }
+
         public async Task<Tuple<bool, string>> Takeoff(float altitude)
         {
             if(_com != null)
@@ -44,7 +53,7 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
         {
             TelemetryMSG.Arm = message.Armed == 0 ? false : true;
             TelemetryMSG.Connected = message.Connected == 0 ? false : true;
-            TelemetryMSG.CurMode = (Telemetry.Mode)message.Mode;
+            TelemetryMSG.CurrentMode = (Telemetry.Mode)message.Mode;
             TelemetryMSG.Battery = message.Battery;
         }
 

@@ -231,6 +231,23 @@ namespace GCS_Comunication.Comunication
             return task;
         }
 
+        public void SendCommandSetMode(int mode)
+        {
+            byte[] setmode_data, message_pack;
+
+            Uavlink_cmd_setmode_t setmodeCmd = new Uavlink_cmd_setmode_t();
+            setmodeCmd.Mode = (byte)mode;
+
+            setmodeCmd.Encode(out setmode_data);
+            Uavlink_message_t message = new Uavlink_message_t();
+            message.Msgid = MessageId.UAVLINK_MSG_ID_COMMAND;
+            message.LenPayload = (sbyte)setmode_data.Length;
+            message.Payload = setmode_data;
+            message.Encode(out message_pack);
+
+            SendMessage(message);
+        }
+
         private void HandleSendManualControl()
         {
             Uavlink_msg_manual_control_t manual_msg = new Uavlink_msg_manual_control_t();

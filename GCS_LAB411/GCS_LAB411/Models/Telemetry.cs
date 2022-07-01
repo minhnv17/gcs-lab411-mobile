@@ -10,11 +10,11 @@ namespace GCS_LAB411.Models
     {
         public enum Mode
         {
-            MANUAL,
-            OFFBOARD,
-            HOLD,
-            POSITION,
-            LAND
+            MANUAL = 1,
+            POSCTL = 2,
+            OFFB = 3,
+            HOLD = 4,
+            LAND = 5
         };
 
         private bool _isLinked = false;
@@ -44,16 +44,16 @@ namespace GCS_LAB411.Models
             }
         }
 
-        private Mode _mode;
-        public Mode CurMode
+        private Mode _currentMode;
+        public Mode CurrentMode
         {
             get
             {
-                return _mode;
+                return _currentMode;
             }
             set
             {
-                SetProperty(ref _mode, value);
+                SetProperty(ref _currentMode, value);
             }
         }
 

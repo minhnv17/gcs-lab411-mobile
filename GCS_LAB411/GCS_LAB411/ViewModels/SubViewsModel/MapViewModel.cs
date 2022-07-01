@@ -17,13 +17,11 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             get => _vhManagerViewModel;
         }
         public PilotCommand AutoPilotCommand { get; set; }
-        public Command tabtab { get; set; }
         public MapViewModel(SlideConfirmViewModel scViewModel, VehicleManagerViewModel vhManagerViewModel)
         {
             _scViewModel = scViewModel;
             _vhManagerViewModel = vhManagerViewModel;
             AutoPilotCommand = new PilotCommand(this, scViewModel);
-            tabtab = new Command(HandleTab);
         }
 
         private bool _isShow = true;
@@ -33,11 +31,11 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             set => SetProperty(ref _isShow, value);
         }
 
-        private void HandleTab(object obj)
+        public void HandleChangeMode(int mode)
         {
-            Console.WriteLine("test");
-            Console.WriteLine(obj);
+            _vhManagerViewModel.Vehicle.DoChangeMode(mode);
         }
+
         public async Task<Tuple<bool, string>> FlytoAction()
         {
             

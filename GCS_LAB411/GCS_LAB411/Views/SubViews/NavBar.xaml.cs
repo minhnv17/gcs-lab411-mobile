@@ -15,10 +15,17 @@ namespace GCS_LAB411.Views.SubViews
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NavBar : ContentView
     {
+        private MainViewModel _mainViewModel;
         public NavBar()
         {
             InitializeComponent();
+            _mainViewModel = App.ServiceProvider.GetRequiredService<MainViewModel>();
             this.BindingContext = App.ServiceProvider.GetRequiredService<MainViewModel>();
+        }
+
+        private void dropdown_ItemSelected(object sender, ItemSelectedEventArgs e)
+        {
+            _mainViewModel.MapViewModel.HandleChangeMode(e.SelectedIndex);
         }
     }
 }

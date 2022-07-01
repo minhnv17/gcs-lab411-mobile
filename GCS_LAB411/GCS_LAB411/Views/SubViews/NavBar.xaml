@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:GCS_LAB411.ViewModels"
              x:Class="GCS_LAB411.Views.SubViews.NavBar">
     <ContentView.Resources>
         <ResourceDictionary>
@@ -21,7 +21,7 @@
             <BoxView Color="#1C1C1D" Opacity="0.7" Grid.Column="0" Grid.RowSpan="1"/>
             <BoxView Color="#1C1C1D" Opacity="0.7" Grid.Column="1" Grid.RowSpan="1"/>
 
-            <StackLayout Grid.Column="0" Orientation="Horizontal" Margin="0,0,50,0">
+            <StackLayout Grid.Column="0" Orientation="Horizontal" Margin="0,0,30,0">
 
                 <ImageButton Source="logo411.png"
                              BackgroundColor="#F6F6F6"
@@ -46,13 +46,13 @@
 
             <StackLayout Grid.Column="1" Orientation="Horizontal">
                 <StackLayout Orientation="Horizontal">
-                    <StackLayout Orientation="Horizontal" Margin="0,0,50,0">
+                    <StackLayout Orientation="Horizontal" Margin="0, 0, 10, 0">
                         <Ellipse WidthRequest="25" HeightRequest="25" VerticalOptions="Center">
                             <Ellipse.Style>
                                 <Style TargetType="Ellipse">
                                     <Setter Property="Fill" Value="Red"/>
                                     <Style.Triggers>
-                                        <DataTrigger TargetType="Ellipse" Binding="{Binding VehicleManagerViewModel.Vehicle.TelemetryMSG.IsLinked}" Value="true">
+                                        <DataTrigger TargetType="Ellipse" Binding="{Binding VehicleManagerViewModel.Vehicle.TelemetryMSG.Connected}" Value="true">
                                             <Setter Property="Fill" Value="GreenYellow" />
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -63,12 +63,16 @@
                     </StackLayout>
 
                     <Image Source="batterystatus.png" BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
-                    <StackLayout Orientation="Horizontal" Spacing="0" Margin="-7,0,5,0">
-                        <Label Text="{Binding VehicleManagerViewModel.Vehicle.TelemetryMSG.Battery, FallbackValue=0}" TextColor="White" FontSize="Medium" VerticalOptions="Center"/>
+                    <StackLayout Orientation="Horizontal" Spacing="0" Margin="-7,0,0,0">
+                        <Label Text="33" TextColor="White" FontSize="Medium" VerticalOptions="Center"/>
                         <Label Text="%" TextColor="White" FontSize="Medium" VerticalOptions="Center"/>
                     </StackLayout>
-                    <Label Text="AUTO" TextColor="White" FontSize="Medium" VerticalOptions="Center" Margin="5,0,20,0"/>
-                    <Label TextColor="White" FontSize="Medium" VerticalOptions="Center" Margin="0,0,25,0">
+                    <viewmodels:DropDown x:Name="dropdown"
+                                         BackgroundColor="Aquamarine"
+                                         ItemsSource="{Binding ListMode}"
+                                         SelectedIndex="{Binding VehicleManagerViewModel.Vehicle.TelemetryMSG.CurrentMode}" 
+                                         ItemSelected="dropdown_ItemSelected"/>
+                    <Label TextColor="White" FontSize="Medium" VerticalOptions="Center">
                         <Label.Style>
                             <Style TargetType="Label">
                                 <Setter Property="Text" Value="DISARMED"/>

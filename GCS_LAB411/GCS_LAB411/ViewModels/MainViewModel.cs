@@ -19,6 +19,8 @@ namespace GCS_LAB411.ViewModels
             set => SetProperty(ref _selectedTabIndex, value);
         }
 
+        public List<String> ListMode { get; set; }
+
         private NavBarViewModel _nbViewModel;
         private SettingViewModel _stViewModel;
         private VehicleManagerViewModel _vhManagerViewModel;
@@ -34,6 +36,11 @@ namespace GCS_LAB411.ViewModels
             get => _vhManagerViewModel;
         }
 
+        public MapViewModel MapViewModel
+        {
+            get => _mapViewModel;
+        }
+
         public MainViewModel(NavBarViewModel nbViewModel, SettingViewModel stViewModel, 
             MapViewModel mapViewModel, VehicleManagerViewModel vhManagerViewModel,
             CameraLiveViewModel clViewModel)
@@ -47,6 +54,12 @@ namespace GCS_LAB411.ViewModels
             _stViewModel.ConnectVehicle += new DelegateConnectVehicle(HandleConnectVehicle);
             _stViewModel.ConnectStreamEvent += new DelegateEnableVideoStream(HandleConnectStream);
             _stViewModel.DisConnectStreamEvent += new DelegateDisableVideoStream(HandleDisConnectStream);
+            ListMode = new List<string>();
+            ListMode.Add("MANUAL");
+            ListMode.Add("POSCTL");
+            ListMode.Add("OFFB");
+            ListMode.Add("HOLD");
+            ListMode.Add("LAND");
             SelectedTabIndex = 1;
         }
 
@@ -82,6 +95,11 @@ namespace GCS_LAB411.ViewModels
         {
             _cameraLiveViewModel.IsEnable = false;
             _cameraLiveViewModel.DisConnectCamera();
+        }
+
+        public void handleChangMode(object obj, ItemSelectedEventArgs e)
+        {
+
         }
     }
 }
