@@ -24,7 +24,6 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
 
         ~VehicleViewModel()
         {
-            TelemetryMSG = null;
         }
 
         public async Task<Tuple<bool, string>> Takeoff(float altitude)
@@ -34,6 +33,11 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
                 return await _com.SendCommandTakeoff(altitude);
             }
             return Tuple.Create(false, "NO COMLINK, CHECK CONNECTION");
+        }
+
+        private void handleLinkedChanged(bool isLinked)
+        {
+            TelemetryMSG.IsLinked = isLinked;
         }
 
         private void handleStateChanged(Uavlink_msg_state_t message)
@@ -66,12 +70,13 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             _com.StateChanged += new DelegateState(handleStateChanged);
             _com.LocalPosChanged += new DelegateLocalPos(handleLocalPosChanged);
             _com.GlobalPosChanged += new DelegateGlobalPos(handleGlobalPosChanged);
+            _com.LinkedChanged += new DelegateLinked(handleLinkedChanged);
         }
 
         public void DisConnect()
         {
             _com.Dispose();
-            TelemetryMSG = null;
+            TelemetryMSG.IsLinked = false;
         }
     }
 }

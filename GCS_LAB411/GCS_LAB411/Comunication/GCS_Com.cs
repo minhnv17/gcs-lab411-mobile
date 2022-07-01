@@ -16,12 +16,14 @@ namespace GCS_Comunication.Comunication
     public class GCS_Com
     {
         public delegate void DelegateState(Uavlink_msg_state_t tele);
+        public delegate void DelegateLinked(bool isLinked);
         public delegate void DelegateLocalPos(Uavlink_msg_local_position_t tele);
         public delegate void DelegateGlobalPos(Uavlink_msg_global_position_t tele);
 
         public event DelegateState StateChanged;
         public event DelegateLocalPos LocalPosChanged;
         public event DelegateGlobalPos GlobalPosChanged;
+        public event DelegateLinked LinkedChanged;
 
         private Udp_Connect _connect;
 
@@ -30,6 +32,8 @@ namespace GCS_Comunication.Comunication
         private Thread _sendingThread;
 
         private Thread _manualControl;
+
+        private Timer _linkedTimer1Hz;
 
         private BlockingCollection<Uavlink_message_t> _sendQueue;
         private BlockingCollection<byte[]> _recvQueue;
@@ -57,6 +61,8 @@ namespace GCS_Comunication.Comunication
             _parsingThread.Start();
             _sendingThread.Start();
             //_manualControl.Start();
+
+            _linkedTimer1Hz = new Timer(new TimerCallback(LinkedTimer1Hz), null, 0, 1000);
         }
 
         private void ReceivingThreadFunction()
@@ -71,6 +77,7 @@ namespace GCS_Comunication.Comunication
                         byte[] buffer;
                         if (_connect.ReceiveData(out buffer) > 0)
                         {
+                            _linkCount = 0;
                             _recvQueue.Add(buffer);
                         }
                     }
@@ -163,6 +170,18 @@ namespace GCS_Comunication.Comunication
             _recvQueue?.Dispose();
             _sendQueue = null;
             _recvQueue = null;
+        }
+
+        private uint _linkCount = 0;
+        private void LinkedTimer1Hz(object state)
+        {
+            _linkCount++;
+            if (_linkCount > 5)
+            {
+                LinkedChanged?.Invoke(false);
+                _linkCount = 6;
+            }
+            else LinkedChanged?.Invoke(true);
         }
 
         private void OnReceivedState(byte[] data)

@@ -17,6 +17,13 @@ namespace GCS_LAB411.Models
             LAND
         };
 
+        private bool _isLinked = false;
+        public bool IsLinked
+        {
+            get { return _isLinked; }
+            set { SetProperty(ref _isLinked, value); }
+        }
+
         private bool _connected = false;
         public bool Connected
         {

@@ -52,7 +52,7 @@
                                 <Style TargetType="Ellipse">
                                     <Setter Property="Fill" Value="Red"/>
                                     <Style.Triggers>
-                                        <DataTrigger TargetType="Ellipse" Binding="{Binding VehicleManagerViewModel.Vehicle.TelemetryMSG.Connected}" Value="true">
+                                        <DataTrigger TargetType="Ellipse" Binding="{Binding VehicleManagerViewModel.Vehicle.TelemetryMSG.IsLinked}" Value="true">
                                             <Setter Property="Fill" Value="GreenYellow" />
                                         </DataTrigger>
                                     </Style.Triggers>
