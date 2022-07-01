@@ -4,8 +4,21 @@
              x:Class="GCS_LAB411.Views.SubViews.MapView">
     <ContentView.Content>
         <AbsoluteLayout>
-            <Image x:Name="map" Source="mymap.png" AbsoluteLayout.LayoutBounds="100, 100" BackgroundColor="red"/>
-            <Image x:Name="waypoint" Source="waypoint.png" WidthRequest="30" HeightRequest="30"/>
+            <Image x:Name="map" Source="mymap.png" AbsoluteLayout.LayoutBounds="100, 100">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"></TapGestureRecognizer>
+                </Image.GestureRecognizers>
+            </Image>
+            <StackLayout x:Name="waypoint" Orientation="Vertical" Spacing="0">
+                <Image Source="waypoint.png" WidthRequest="25" HeightRequest="25"/>
+                <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="Center">
+                    <Label Text="Id: " FontSize="10"/>
+                    <Label Text="3" FontSize="10"/>
+                </StackLayout>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
             
             <!--Command box view-->
             <subviews:CommandBox x:Name="commandbox"
@@ -17,8 +30,7 @@
                                    AbsoluteLayout.LayoutBounds="450, 170"
                                    BindingContext="{Binding VehicleManagerViewModel.Vehicle}"/>
             <AbsoluteLayout.GestureRecognizers>
-                <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"
-                                      ></PanGestureRecognizer>
+                <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"/>
             </AbsoluteLayout.GestureRecognizers>
         </AbsoluteLayout>
     </ContentView.Content>
