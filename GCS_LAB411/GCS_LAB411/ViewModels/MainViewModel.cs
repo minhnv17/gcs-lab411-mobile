@@ -96,10 +96,5 @@ namespace GCS_LAB411.ViewModels
             _cameraLiveViewModel.IsEnable = false;
             _cameraLiveViewModel.DisConnectCamera();
         }
-
-        public void handleChangMode(object obj, ItemSelectedEventArgs e)
-        {
-
-        }
     }
 }

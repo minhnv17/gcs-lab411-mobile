@@ -8,14 +8,7 @@ namespace GCS_LAB411.Models
 {
     public class Telemetry : PropertyChangedBase
     {
-        public enum Mode
-        {
-            MANUAL,
-            POSCTL,
-            OFFB,
-            HOLD,
-            LAND
-        };
+        public List<string> Mode;
 
         private bool _isLinked = false;
         public bool IsLinked
@@ -44,8 +37,8 @@ namespace GCS_LAB411.Models
             }
         }
 
-        private Mode _currentMode = Mode.MANUAL;
-        public Mode CurrentMode
+        private string _currentMode;
+        public string CurrentMode
         {
             get
             {

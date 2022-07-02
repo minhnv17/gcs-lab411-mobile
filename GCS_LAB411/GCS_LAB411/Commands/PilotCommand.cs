@@ -71,12 +71,17 @@ namespace GCS_LAB411.Commands
                             Console.WriteLine("DoTakeoff");
                             answer = await (_parent as MapViewModel).Takeoff((float)outValue);
                             break;
-                        case "DoArm":
+                        case "DoArmDisarm":
                             Console.WriteLine("DoARM");
+                            answer = await (_parent as MapViewModel).ArmDisarm();
                             break;
 
                         case "DoRTL":
                             Console.WriteLine("RTL");
+                            break;
+
+                        case "DoLand":
+                            Console.WriteLine("do land");
                             break;
                         default: 
                             break;

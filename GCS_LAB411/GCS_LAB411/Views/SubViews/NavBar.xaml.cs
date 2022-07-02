@@ -22,10 +22,5 @@ namespace GCS_LAB411.Views.SubViews
             _mainViewModel = App.ServiceProvider.GetRequiredService<MainViewModel>();
             this.BindingContext = App.ServiceProvider.GetRequiredService<MainViewModel>();
         }
-
-        private void dropdown_ItemSelected(object sender, ItemSelectedEventArgs e)
-        {
-            _mainViewModel.MapViewModel.HandleChangeMode(e.SelectedIndex);
-        }
     }
 }

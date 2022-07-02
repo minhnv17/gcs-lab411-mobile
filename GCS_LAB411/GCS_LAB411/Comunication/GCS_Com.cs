@@ -248,6 +248,43 @@ namespace GCS_Comunication.Comunication
             SendMessage(message);
         }
 
+        public Task<Tuple<bool, string>> SendCommandArmDisarm(byte armdisarm)
+        {
+            Func<Tuple<bool, string>> sendCommand = () =>
+            {
+                Tuple<bool, string> resAnswers = new Tuple<bool, string>(false, null);
+                byte[] message_pack;
+                byte[] data = new byte[3];
+                BitConverter.GetBytes((UInt16)CommandId.UAVLINK_CMD_ARM).CopyTo(data, 0);
+                data[2] = armdisarm;
+
+                Uavlink_message_t message = new Uavlink_message_t();
+                message.Msgid = MessageId.UAVLINK_MSG_ID_COMMAND;
+                message.LenPayload = 3;
+                message.Payload = data;
+                message.Encode(out message_pack);
+                SendMessage(message);
+                resAnswers = Tuple.Create(true, "send command ok");
+                return resAnswers;
+            };
+            var task = new Task<Tuple<bool, string>>(sendCommand);
+            task.Start();
+            return task;
+        }
+
+        public void SendCommandLand()
+        {
+            byte[] message_pack;
+
+            Uavlink_message_t message = new Uavlink_message_t();
+            message.Msgid = MessageId.UAVLINK_MSG_ID_COMMAND;
+            message.LenPayload = 2;
+            message.Payload = BitConverter.GetBytes((UInt16)CommandId.UAVLINK_CMD_LAND);
+            message.Encode(out message_pack);
+
+            SendMessage(message);
+        }
+
         private void HandleSendManualControl()
         {
             Uavlink_msg_manual_control_t manual_msg = new Uavlink_msg_manual_control_t();

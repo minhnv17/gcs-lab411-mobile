@@ -20,6 +20,12 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
         public VehicleViewModel()
         {
             TelemetryMSG = new Telemetry();
+            TelemetryMSG.Mode = new List<string>();
+            TelemetryMSG.Mode.Add("MANUAL");
+            TelemetryMSG.Mode.Add("POSCTL");
+            TelemetryMSG.Mode.Add("OFFB");
+            TelemetryMSG.Mode.Add("LAND");
+            TelemetryMSG.CurrentMode = TelemetryMSG.Mode[0];
         }
 
         ~VehicleViewModel()
@@ -44,6 +50,18 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             return Tuple.Create(false, "NO COMLINK, CHECK CONNECTION");
         }
 
+        public async Task<Tuple<bool, string>> ArmDisarm()
+        {
+            if (_com != null)
+            {
+                byte result;
+                if (TelemetryMSG.Arm) result = 0;
+                else result = 1;
+                return await _com.SendCommandArmDisarm(result);
+            }
+            return Tuple.Create(false, "NO COMLINK, CHECK CONNECTION");
+        }
+
         private void handleLinkedChanged(bool isLinked)
         {
             TelemetryMSG.IsLinked = isLinked;
@@ -53,7 +71,7 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
         {
             TelemetryMSG.Arm = message.Armed == 0 ? false : true;
             TelemetryMSG.Connected = message.Connected == 0 ? false : true;
-            TelemetryMSG.CurrentMode = (Telemetry.Mode)message.Mode;
+            TelemetryMSG.CurrentMode = TelemetryMSG.Mode[message.Mode];
             TelemetryMSG.Battery = message.Battery;
         }
 

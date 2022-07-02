@@ -46,5 +46,10 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
         {
             return await _vhManagerViewModel.Vehicle.Takeoff(altitude);
         }
+
+        public async Task<Tuple<bool, string>> ArmDisarm()
+        {
+            return await _vhManagerViewModel.Vehicle.ArmDisarm();
+        }
     }
 }

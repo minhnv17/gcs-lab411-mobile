@@ -46,7 +46,7 @@
 
             <StackLayout Grid.Column="1" Orientation="Horizontal">
                 <StackLayout Orientation="Horizontal">
-                    <StackLayout Orientation="Horizontal" Margin="0, 0, 10, 0">
+                    <StackLayout Orientation="Horizontal" Margin="0, 0, 25, 0">
                         <Ellipse WidthRequest="25" HeightRequest="25" VerticalOptions="Center">
                             <Ellipse.Style>
                                 <Style TargetType="Ellipse">
@@ -63,15 +63,13 @@
                     </StackLayout>
 
                     <Image Source="batterystatus.png" BackgroundColor="Transparent" WidthRequest="30" HeightRequest="30"/>
-                    <StackLayout Orientation="Horizontal" Spacing="0" Margin="-7,0,0,0">
-                        <Label Text="33" TextColor="White" FontSize="Medium" VerticalOptions="Center"/>
+                    <StackLayout Orientation="Horizontal" Spacing="0" Margin="-5,0,10,0">
+                        <Label Text="{Binding VehicleManagerViewModel.Vehicle.TelemetryMSG.Battery}" TextColor="White" FontSize="Medium" VerticalOptions="Center"/>
                         <Label Text="%" TextColor="White" FontSize="Medium" VerticalOptions="Center"/>
                     </StackLayout>
-                    <viewmodels:DropDown x:Name="dropdown"
-                                         BackgroundColor="Aquamarine"
-                                         ItemsSource="{Binding ListMode}"
-                                         SelectedIndex="{Binding VehicleManagerViewModel.Vehicle.TelemetryMSG.CurrentMode}" 
-                                         ItemSelected="dropdown_ItemSelected"/>
+                    <Label Text="{Binding VehicleManagerViewModel.Vehicle.TelemetryMSG.CurrentMode}" 
+                           Margin="0,0,10,0"
+                           TextColor="White" FontSize="Medium" VerticalOptions="Center"/>
                     <Label TextColor="White" FontSize="Medium" VerticalOptions="Center">
                         <Label.Style>
                             <Style TargetType="Label">
@@ -83,10 +81,14 @@
                                 </Style.Triggers>
                             </Style>
                         </Label.Style>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding MapViewModel.AutoPilotCommand}"
+                                                  CommandParameter="DoArmDisarm">
+                            </TapGestureRecognizer>
+                        </Label.GestureRecognizers>
                     </Label>
                 </StackLayout>
             </StackLayout>
-
         </Grid>
     </ContentView.Content>
 </ContentView>
