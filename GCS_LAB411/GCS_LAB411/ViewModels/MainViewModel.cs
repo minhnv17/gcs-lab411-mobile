@@ -52,6 +52,7 @@ namespace GCS_LAB411.ViewModels
             _cameraLiveViewModel = clViewModel;
             _nbViewModel.SelectTabEvent += HandleSelectTab;
             _stViewModel.ConnectVehicle += new DelegateConnectVehicle(HandleConnectVehicle);
+            _stViewModel.DisConnectVehicle += new DelegateDisConnectVehicle(HandleDisConnectVehicle);
             _stViewModel.ConnectStreamEvent += new DelegateEnableVideoStream(HandleConnectStream);
             _stViewModel.DisConnectStreamEvent += new DelegateDisableVideoStream(HandleDisConnectStream);
             ListMode = new List<string>();
@@ -83,6 +84,11 @@ namespace GCS_LAB411.ViewModels
         private void HandleConnectVehicle(GCS_Com _mycom)
         {
             _vhManagerViewModel.ConnectToVehicle(_mycom);
+        }
+
+        private void HandleDisConnectVehicle()
+        {
+            _vhManagerViewModel.DisConnectVehicle();
         }
 
         private void HandleConnectStream(string url, bool isEnable)

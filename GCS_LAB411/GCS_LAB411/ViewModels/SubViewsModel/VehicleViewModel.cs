@@ -102,8 +102,12 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
 
         public void DisConnect()
         {
-            _com.Dispose();
-            TelemetryMSG.IsLinked = false;
+            if(_com != null)
+            {
+                _com.Dispose();
+                _com = null;
+                TelemetryMSG.IsLinked = false;
+            }
         }
     }
 }

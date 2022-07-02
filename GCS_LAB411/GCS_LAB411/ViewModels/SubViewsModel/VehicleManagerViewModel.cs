@@ -20,5 +20,10 @@ namespace GCS_LAB411.ViewModels
         {
             Vehicle.Connect(com);
         }
+
+        public void DisConnectVehicle()
+        {
+            Vehicle.DisConnect();
+        }
     }
 }

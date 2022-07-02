@@ -68,11 +68,9 @@ namespace GCS_LAB411.Commands
                             break;
 
                         case "DoTakeOff":
-                            Console.WriteLine("DoTakeoff");
                             answer = await (_parent as MapViewModel).Takeoff((float)outValue);
                             break;
                         case "DoArmDisarm":
-                            Console.WriteLine("DoARM");
                             answer = await (_parent as MapViewModel).ArmDisarm();
                             break;
 

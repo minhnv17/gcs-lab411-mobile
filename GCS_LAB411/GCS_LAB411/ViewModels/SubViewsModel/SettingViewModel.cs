@@ -10,9 +10,12 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
     public class SettingViewModel : BaseViewModel
     {
         public delegate void DelegateConnectVehicle(GCS_Com _mycom);
+        public delegate void DelegateDisConnectVehicle();
         public delegate void DelegateEnableVideoStream(string videoSourde, bool enable);
         public delegate void DelegateDisableVideoStream();
+
         public event DelegateConnectVehicle ConnectVehicle;
+        public event DelegateDisConnectVehicle DisConnectVehicle;
         public event DelegateEnableVideoStream ConnectStreamEvent;
         public event DelegateDisableVideoStream DisConnectStreamEvent;
 
@@ -108,7 +111,7 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
 
         private void HandleDisConnectCommand(object obj)
         {
-            _myUdp.DoDisconnect();
+            DisConnectVehicle?.Invoke();
         }
 
         private void HandleCompletedSourceCommand(object obj)
