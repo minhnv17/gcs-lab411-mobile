@@ -1,4 +1,5 @@
 ﻿using GCS_LAB411.Commands;
+using GCS_LAB411.Models;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
 using System;
@@ -11,6 +12,7 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
     public class MapViewModel : BaseViewModel
     {
         private SlideConfirmViewModel _scViewModel;
+        public Waypoint _curentWP;
         private VehicleManagerViewModel _vhManagerViewModel;
         public VehicleManagerViewModel VehicleManagerViewModel
         {
@@ -21,6 +23,11 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
         {
             _scViewModel = scViewModel;
             _vhManagerViewModel = vhManagerViewModel;
+            _curentWP = new Waypoint();
+            _curentWP.WaypointID = 1;
+            _curentWP.PosX = 0;
+            _curentWP.PosY = 0;
+            _curentWP.IsComplete = false;
             AutoPilotCommand = new PilotCommand(this, scViewModel);
         }
 

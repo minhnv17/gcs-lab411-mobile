@@ -26,17 +26,18 @@ namespace GCS_LAB411.Views.SubViews
         Dictionary<long, TouchManipulationBitmap> bitmapDictionary =
             new Dictionary<long, TouchManipulationBitmap>();
 
-        float previ_p, cur_p, posX;
+        MapViewModel _mapViewModel;
+        SKPoint previ_p, cur_p;
         public MapView()
         {
             InitializeComponent();
+            _mapViewModel = App.ServiceProvider.GetRequiredService<MapViewModel>();
             this.BindingContext = App.ServiceProvider.GetRequiredService<MapViewModel>();
-            posX = 0;
             // Load in all the available bitmaps
             Assembly assembly = GetType().GetTypeInfo().Assembly;
             string[] resourceIDs = assembly.GetManifestResourceNames();
             SKPoint position = new SKPoint();
-
+             
             foreach (string resourceID in resourceIDs)
             {
                 if (resourceID.EndsWith(".png") ||
@@ -70,17 +71,16 @@ namespace GCS_LAB411.Views.SubViews
             switch (args.Type)
             {
                 case TouchActionType.Pressed:
-                    previ_p = point.X;
                     for (int i = bitmapCollection.Count - 1; i >= 0; i--)
                     {
                         TouchManipulationBitmap bitmap = bitmapCollection[i];
 
                         if (bitmap.HitTest(point))
                         {
+                            previ_p = point;
                             // Move bitmap to end of collection
                             bitmapCollection.Remove(bitmap);
                             bitmapCollection.Add(bitmap);
-
                             // Do the touch processing
                             bitmapDictionary.Add(args.Id, bitmap);
                             bitmap.ProcessTouchEvent(args.Id, args.Type, point);
@@ -95,6 +95,7 @@ namespace GCS_LAB411.Views.SubViews
                     {
                         TouchManipulationBitmap bitmap = bitmapDictionary[args.Id];
                         bitmap.ProcessTouchEvent(args.Id, args.Type, point);
+                        cur_p = bitmap.current_object.NewPoint;
                         canvasView.InvalidateSurface();
                     }
                     break;
@@ -105,12 +106,11 @@ namespace GCS_LAB411.Views.SubViews
                     {
                         TouchManipulationBitmap bitmap = bitmapDictionary[args.Id];
                         bitmap.ProcessTouchEvent(args.Id, args.Type, point);
-                        cur_p = bitmap.current_object.NewPoint.X;
                         bitmapDictionary.Remove(args.Id);
                         canvasView.InvalidateSurface();
+                        _mapViewModel._curentWP.PosX += cur_p.X - previ_p.X;
+                        _mapViewModel._curentWP.PosY += cur_p.Y - previ_p.Y;
                     }
-                    posX += cur_p - previ_p;
-                    Console.WriteLine(posX);
                     break;
             }
         }
