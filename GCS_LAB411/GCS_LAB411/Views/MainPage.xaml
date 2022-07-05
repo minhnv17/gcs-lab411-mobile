@@ -6,14 +6,14 @@
              x:Class="GCS_LAB411.MainPage" >
 
     <Grid>
+        <!--map view-->
+        <subviews:MapView Margin="0,40,0,0"></subviews:MapView>
+        
         <!--camera view-->
         <subviews:CameraLive HeightRequest="120" Margin="20, 10"
                              VerticalOptions="EndAndExpand" 
                              HorizontalOptions="StartAndExpand"></subviews:CameraLive>
 
-        <!--map view-->
-        <subviews:MapView Margin="0,40,0,0"></subviews:MapView>
-        
         <!--Navbar view-->
         <subviews:NavBar HeightRequest="40" VerticalOptions="StartAndExpand"/>
 

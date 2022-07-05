@@ -5,13 +5,35 @@
              xmlns:tt="clr-namespace:TouchTracking"
              x:Class="GCS_LAB411.Views.SubViews.MapView">
     <ContentView.Content>
-        <Grid BackgroundColor="White">
-            <skia:SKCanvasView x:Name="canvasView"
-                           PaintSurface="OnCanvasViewPaintSurface" />
-            <Grid.Effects>
-                <tt:TouchEffect Capture="True"
-                            TouchAction="OnTouchEffectAction" />
-            </Grid.Effects>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <skia:SKCanvasView x:Name="canvasView"
+                               PaintSurface="OnCanvasViewPaintSurface" />
+                <Grid.Effects>
+                    <tt:TouchEffect Capture="True"
+                                TouchAction="OnTouchEffectAction" />
+                </Grid.Effects>
+            </Grid>
+            <Grid Grid.Row="1">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                    <Button Text="Download Mission" VerticalOptions="Center"/>
+                    <Button Text="Send Mission" VerticalOptions="Center" Margin="0,0,15,0"/>
+                </StackLayout>
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="IsVisible" Value="false"/>
+                        <Style.Triggers>
+                            <DataTrigger TargetType="Grid" Binding="{Binding IsMissionShow}" Value="true">
+                                <Setter Property="IsVisible" Value="true"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+            </Grid>
         </Grid>
     </ContentView.Content>
     <ContentView.Style>

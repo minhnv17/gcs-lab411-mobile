@@ -38,7 +38,7 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             set => SetProperty(ref _isFlytabShow, value);
         }
 
-        private bool _isMissionShow = true;
+        private bool _isMissionShow = false;
         public bool IsMissionShow
         {
             get => _isMissionShow;
