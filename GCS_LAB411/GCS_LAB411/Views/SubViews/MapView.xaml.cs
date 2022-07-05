@@ -13,52 +13,49 @@ using System.Reflection;
 using System.IO;
 using SkiaSharp.Views.Forms;
 using TouchTracking;
+using GCS_LAB411.TouchTracking;
 
 namespace GCS_LAB411.Views.SubViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MapView : ContentView
     {
-        // Bitmap and matrix for display
-        SKBitmap bitmap;
-        SKMatrix matrix = SKMatrix.MakeIdentity();
-        // Touch information
-        long touchId = -1;
-        SKPoint previousPoint;
+        List<TouchManipulationBitmap> bitmapCollection =
+            new List<TouchManipulationBitmap>();
+
+        Dictionary<long, TouchManipulationBitmap> bitmapDictionary =
+            new Dictionary<long, TouchManipulationBitmap>();
+
+        float previ_p, cur_p, posX;
         public MapView()
         {
             InitializeComponent();
             this.BindingContext = App.ServiceProvider.GetRequiredService<MapViewModel>();
-
-            string resourceID = "GCS_LAB411.Media.waypoint.png";
+            posX = 0;
+            // Load in all the available bitmaps
             Assembly assembly = GetType().GetTypeInfo().Assembly;
+            string[] resourceIDs = assembly.GetManifestResourceNames();
+            SKPoint position = new SKPoint();
 
-            using (Stream stream = assembly.GetManifestResourceStream(resourceID))
+            foreach (string resourceID in resourceIDs)
             {
-                bitmap = SKBitmap.Decode(stream);
-            }
-        }
-
-        void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
-        {
-            SKImageInfo info = args.Info;
-            SKSurface surface = args.Surface;
-            SKCanvas canvas = surface.Canvas;
-
-            canvas.Clear();
-
-            // Display the bitmap
-            canvas.SetMatrix(matrix);
-            canvas.DrawBitmap(bitmap, new SKPoint());
-
-            using (var paint = new SKPaint())
-            {
-                paint.TextSize = 13.0f;
-                paint.IsAntialias = true;
-                paint.Color = new SKColor(0xE6, 0xB8, 0x9C);
-                paint.TextAlign = SKTextAlign.Center;
-
-                canvas.DrawText("ID : 1", bitmap.Width, bitmap.Height, paint);
+                if (resourceID.EndsWith(".png") ||
+                    resourceID.EndsWith(".jpg"))
+                {
+                    if(resourceID != "GCS_LAB411.Media.mymap.png")
+                    {
+                        using (Stream stream = assembly.GetManifestResourceStream(resourceID))
+                        {
+                            SKBitmap bitmap = SKBitmap.Decode(stream);
+                            bitmapCollection.Add(new TouchManipulationBitmap(bitmap)
+                            {
+                                Matrix = SKMatrix.MakeTranslation(position.X, position.Y),
+                            });
+                            position.X += 0;
+                            position.Y += 0;
+                        }
+                    }
+                }
             }
         }
 
@@ -73,34 +70,71 @@ namespace GCS_LAB411.Views.SubViews
             switch (args.Type)
             {
                 case TouchActionType.Pressed:
-                    // Find transformed bitmap rectangle
-                    SKRect rect = new SKRect(0, 0, bitmap.Width, bitmap.Height);
-                    rect = matrix.MapRect(rect);
-
-                    // Determine if the touch was within that rectangle
-                    if (rect.Contains(point))
+                    previ_p = point.X;
+                    for (int i = bitmapCollection.Count - 1; i >= 0; i--)
                     {
-                        touchId = args.Id;
-                        previousPoint = point;
+                        TouchManipulationBitmap bitmap = bitmapCollection[i];
+
+                        if (bitmap.HitTest(point))
+                        {
+                            // Move bitmap to end of collection
+                            bitmapCollection.Remove(bitmap);
+                            bitmapCollection.Add(bitmap);
+
+                            // Do the touch processing
+                            bitmapDictionary.Add(args.Id, bitmap);
+                            bitmap.ProcessTouchEvent(args.Id, args.Type, point);
+                            canvasView.InvalidateSurface();
+                            break;
+                        }
                     }
                     break;
 
                 case TouchActionType.Moved:
-                    if (touchId == args.Id)
+                    if (bitmapDictionary.ContainsKey(args.Id))
                     {
-                        // Adjust the matrix for the new position
-                        matrix.TransX += point.X - previousPoint.X;
-                        matrix.TransY += point.Y - previousPoint.Y;
-                        previousPoint = point;
-                        Console.WriteLine(matrix.TransX);
+                        TouchManipulationBitmap bitmap = bitmapDictionary[args.Id];
+                        bitmap.ProcessTouchEvent(args.Id, args.Type, point);
                         canvasView.InvalidateSurface();
                     }
                     break;
 
                 case TouchActionType.Released:
                 case TouchActionType.Cancelled:
-                    touchId = -1;
+                    if (bitmapDictionary.ContainsKey(args.Id))
+                    {
+                        TouchManipulationBitmap bitmap = bitmapDictionary[args.Id];
+                        bitmap.ProcessTouchEvent(args.Id, args.Type, point);
+                        cur_p = bitmap.current_object.NewPoint.X;
+                        bitmapDictionary.Remove(args.Id);
+                        canvasView.InvalidateSurface();
+                    }
+                    posX += cur_p - previ_p;
+                    Console.WriteLine(posX);
                     break;
+            }
+        }
+
+        void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
+        {
+            SKImageInfo info = args.Info;
+            SKCanvas canvas = args.Surface.Canvas;
+            canvas.Clear();
+
+            string resourceID = "GCS_LAB411.Media.mymap.png";
+            Assembly assembly = GetType().GetTypeInfo().Assembly;
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceID))
+            {
+                SKBitmap mapBitmap = SKBitmap.Decode(stream);
+                float x2 = (info.Width - mapBitmap.Width) / 2;
+                float y2 = (info.Height - mapBitmap.Height) / 2;
+                canvas.DrawBitmap(mapBitmap, x2, y2);
+            }
+
+            foreach (TouchManipulationBitmap bitmap in bitmapCollection)
+            {
+                bitmap.Paint(canvas);
             }
         }
     }
