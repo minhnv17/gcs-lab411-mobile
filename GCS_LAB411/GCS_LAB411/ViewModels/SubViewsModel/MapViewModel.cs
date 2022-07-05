@@ -24,11 +24,18 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             AutoPilotCommand = new PilotCommand(this, scViewModel);
         }
 
-        private bool _isShow = true;
-        public bool IsShow
+        private bool _isFlytabShow = true;
+        public bool IsFlytabShow
         {
-            get => _isShow;
-            set => SetProperty(ref _isShow, value);
+            get => _isFlytabShow;
+            set => SetProperty(ref _isFlytabShow, value);
+        }
+
+        private bool _isMissionShow = false;
+        public bool IsMissionShow
+        {
+            get => _isMissionShow;
+            set => SetProperty(ref _isMissionShow, value);
         }
 
         public void HandleChangeMode(int mode)

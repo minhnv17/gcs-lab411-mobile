@@ -20,15 +20,7 @@
                 </StackLayout.GestureRecognizers>
             </StackLayout>
             
-            <!--Command box view-->
-            <subviews:CommandBox x:Name="commandbox"
-                                 AbsoluteLayout.LayoutBounds="20, 70"/>
-            <!--Telemetry box view-->
-            <subviews:TelemetryBox x:Name="telemetrybox"
-                                   WidthRequest="150"
-                                   HeightRequest="160"
-                                   AbsoluteLayout.LayoutBounds="450, 170"
-                                   BindingContext="{Binding VehicleManagerViewModel.Vehicle}"/>
+            
             <AbsoluteLayout.GestureRecognizers>
                 <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"/>
             </AbsoluteLayout.GestureRecognizers>
@@ -38,7 +30,7 @@
         <Style TargetType="ContentView">
             <Setter Property="IsVisible" Value="false"/>
             <Style.Triggers>
-                <DataTrigger TargetType="ContentView" Binding="{Binding IsShow}" Value="true">
+                <DataTrigger TargetType="ContentView" Binding="{Binding IsMissionShow}" Value="true">
                     <Setter Property="IsVisible" Value="true"/>
                 </DataTrigger>
             </Style.Triggers>
