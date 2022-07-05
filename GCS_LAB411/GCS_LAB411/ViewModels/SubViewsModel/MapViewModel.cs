@@ -31,11 +31,18 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             set => SetProperty(ref _isFlytabShow, value);
         }
 
-        private bool _isMissionShow = false;
+        private bool _isMissionShow = true;
         public bool IsMissionShow
         {
             get => _isMissionShow;
             set => SetProperty(ref _isMissionShow, value);
+        }
+
+        private bool _isMapShow = true;
+        public bool IsMapShow
+        {
+            get => _isMapShow;
+            set => SetProperty(ref _isMapShow, value);
         }
 
         public void HandleChangeMode(int mode)

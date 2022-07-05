@@ -116,7 +116,7 @@ namespace GCS_Comunication.Comunication
                             {
                                 size -= _connect.SendData(buffer);
                             }
-                            catch (Exception ex)
+                            catch
                             {
                                 return;
                             }

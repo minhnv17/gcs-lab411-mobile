@@ -8,74 +8,98 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Microsoft.Extensions.DependencyInjection;
 using GCS_LAB411.ViewModels.SubViewsModel;
+using SkiaSharp;
+using System.Reflection;
+using System.IO;
+using SkiaSharp.Views.Forms;
+using TouchTracking;
 
 namespace GCS_LAB411.Views.SubViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MapView : ContentView
     {
-        private double x_wp, y_wp;
-        private int max_width, max_height;
-
-        private int _selectedWP;
-
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-            _selectedWP = 1;
-        }
-
-        private void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
-        {
-            _selectedWP = 0;
-        }
-
+        // Bitmap and matrix for display
+        SKBitmap bitmap;
+        SKMatrix matrix = SKMatrix.MakeIdentity();
+        // Touch information
+        long touchId = -1;
+        SKPoint previousPoint;
         public MapView()
         {
             InitializeComponent();
             this.BindingContext = App.ServiceProvider.GetRequiredService<MapViewModel>();
-            waypoint.TranslationX = 50;
-            x_wp = 50;
-            waypoint.TranslationY = 50;
-            y_wp = 50;
-            max_width = 640;
-            max_height = 360;
+
+            string resourceID = "GCS_LAB411.Media.waypoint.png";
+            Assembly assembly = GetType().GetTypeInfo().Assembly;
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceID))
+            {
+                bitmap = SKBitmap.Decode(stream);
+            }
         }
 
-        private void PanGestureRecognizer_PanUpdated(object sender, PanUpdatedEventArgs e)
+        void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
-            switch (e.StatusType)
+            SKImageInfo info = args.Info;
+            SKSurface surface = args.Surface;
+            SKCanvas canvas = surface.Canvas;
+
+            canvas.Clear();
+
+            // Display the bitmap
+            canvas.SetMatrix(matrix);
+            canvas.DrawBitmap(bitmap, new SKPoint());
+
+            using (var paint = new SKPaint())
             {
-                case GestureStatus.Started:
-                    Console.WriteLine("started");
-                    break;
-                case GestureStatus.Running:
-                    switch (_selectedWP)
+                paint.TextSize = 13.0f;
+                paint.IsAntialias = true;
+                paint.Color = new SKColor(0xE6, 0xB8, 0x9C);
+                paint.TextAlign = SKTextAlign.Center;
+
+                canvas.DrawText("ID : 1", bitmap.Width, bitmap.Height, paint);
+            }
+        }
+
+        void OnTouchEffectAction(object sender, TouchActionEventArgs args)
+        {
+            // Convert Xamarin.Forms point to pixels
+            Point pt = args.Location;
+            SKPoint point =
+                new SKPoint((float)(canvasView.CanvasSize.Width * pt.X / canvasView.Width),
+                            (float)(canvasView.CanvasSize.Height * pt.Y / canvasView.Height));
+
+            switch (args.Type)
+            {
+                case TouchActionType.Pressed:
+                    // Find transformed bitmap rectangle
+                    SKRect rect = new SKRect(0, 0, bitmap.Width, bitmap.Height);
+                    rect = matrix.MapRect(rect);
+
+                    // Determine if the touch was within that rectangle
+                    if (rect.Contains(point))
                     {
-                        case 0:
-                            Console.WriteLine("Map select");
-                            break;
-                        case 1:
-                            Console.WriteLine("WP select");
-                            waypoint.TranslationX = x_wp + e.TotalX;
-                            waypoint.TranslationY = y_wp + e.TotalY;
-                            if (waypoint.TranslationX >= max_width) waypoint.TranslationX = max_width - 30;
-                            else if (waypoint.TranslationX <= 0) waypoint.TranslationX = 0;
-                            if (waypoint.TranslationY >= max_height) waypoint.TranslationY = max_height - 30;
-                            else if (waypoint.TranslationY <= 0) waypoint.TranslationY = 0;
-                            break;
+                        touchId = args.Id;
+                        previousPoint = point;
                     }
                     break;
-                case GestureStatus.Completed:
-                    switch(_selectedWP)
+
+                case TouchActionType.Moved:
+                    if (touchId == args.Id)
                     {
-                        case 0:
-                            break;
-                        case 1:
-                            Console.WriteLine("Completed");
-                            x_wp = waypoint.TranslationX;
-                            y_wp = waypoint.TranslationY;
-                            break;
+                        // Adjust the matrix for the new position
+                        matrix.TransX += point.X - previousPoint.X;
+                        matrix.TransY += point.Y - previousPoint.Y;
+                        previousPoint = point;
+                        Console.WriteLine(matrix.TransX);
+                        canvasView.InvalidateSurface();
                     }
+                    break;
+
+                case TouchActionType.Released:
+                case TouchActionType.Cancelled:
+                    touchId = -1;
                     break;
             }
         }

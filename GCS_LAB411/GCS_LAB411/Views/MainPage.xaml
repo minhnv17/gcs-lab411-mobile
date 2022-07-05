@@ -12,7 +12,7 @@
                              HorizontalOptions="StartAndExpand"></subviews:CameraLive>
 
         <!--map view-->
-        <subviews:MapView></subviews:MapView>
+        <subviews:MapView Margin="0,40,0,0"></subviews:MapView>
         
         <!--Navbar view-->
         <subviews:NavBar HeightRequest="40" VerticalOptions="StartAndExpand"/>
