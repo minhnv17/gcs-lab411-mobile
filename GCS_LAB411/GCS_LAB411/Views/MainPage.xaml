@@ -6,23 +6,37 @@
              x:Class="GCS_LAB411.MainPage" >
 
     <Grid>
-
-            <!--map view-->
-        <subviews:MapView></subviews:MapView>
+        <!--map view-->
+        <subviews:MapView Margin="0,40,0,0"></subviews:MapView>
         
+        <!--camera view-->
+        <subviews:CameraLive HeightRequest="120" Margin="20, 10"
+                             VerticalOptions="EndAndExpand" 
+                             HorizontalOptions="StartAndExpand"></subviews:CameraLive>
+
         <!--Navbar view-->
         <subviews:NavBar HeightRequest="40" VerticalOptions="StartAndExpand"/>
 
         <!--Setting View-->
         <subviews:SettingPanel Margin="0,40,0,0"></subviews:SettingPanel>
 
+        <!--Command box view-->
+        <subviews:CommandBox x:Name="commandbox" BindingContext="{Binding MapViewModel}"
+                             VerticalOptions="Start"
+                             HorizontalOptions="Start"
+                             Margin="10,60,0,0"/>
+        
+        <!--Telemetry box view-->
+        <subviews:TelemetryBox x:Name="telemetrybox"
+                               WidthRequest="150"
+                               HeightRequest="160"
+                               HorizontalOptions="End"
+                               VerticalOptions="End"
+                               Margin="20"
+                               BindingContext="{Binding MapViewModel}"/>
+
         <!--Slide Confirm-->
         <subviews:SlideConfirm Margin="200,260,200,30"></subviews:SlideConfirm>
-        
-        <!--camera view-->
-        <subviews:CameraLive HeightRequest="120" Margin="20, 10"
-                             VerticalOptions="EndAndExpand" 
-                             HorizontalOptions="StartAndExpand"></subviews:CameraLive>
     </Grid>
 
 </ContentPage>

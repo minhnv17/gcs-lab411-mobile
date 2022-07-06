@@ -40,7 +40,9 @@
                 <ImageButton Source="waypoint.png"
                              BackgroundColor="Transparent"
                              Style="{StaticResource image-style}"
-                             Margin="0,0,25,0"/>
+                             Margin="0,0,25,0"
+                             Command="{Binding NavBarViewModel.ChangedViewCommand}"
+                             CommandParameter="2"/>
 
             </StackLayout>
 

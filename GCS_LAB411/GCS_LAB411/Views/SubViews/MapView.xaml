@@ -1,44 +1,76 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:subviews="clr-namespace:GCS_LAB411.Views.SubViews"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:subviews="clr-namespace:GCS_LAB411.Views.SubViews" 
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms" 
+             xmlns:tt="clr-namespace:TouchTracking"
              x:Class="GCS_LAB411.Views.SubViews.MapView">
     <ContentView.Content>
-        <AbsoluteLayout>
-            <Image x:Name="map" Source="mymap.png" AbsoluteLayout.LayoutBounds="100, 100">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"></TapGestureRecognizer>
-                </Image.GestureRecognizers>
-            </Image>
-            <StackLayout x:Name="waypoint" Orientation="Vertical" Spacing="0">
-                <Image Source="waypoint.png" WidthRequest="25" HeightRequest="25"/>
-                <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="Center">
-                    <Label Text="Id: " FontSize="10"/>
-                    <Label Text="3" FontSize="10"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <skia:SKCanvasView x:Name="canvasView"
+                               PaintSurface="OnCanvasViewPaintSurface" />
+                <Grid.Effects>
+                    <tt:TouchEffect Capture="True"
+                                TouchAction="OnTouchEffectAction" />
+                </Grid.Effects>
+            </Grid>
+            <Frame Grid.Row="0" Padding="3" VerticalOptions="Center" HorizontalOptions="End"
+                   CornerRadius="10"
+                   Margin="10, 0">
+                <StackLayout Orientation="Vertical">
+                    <Label Text="Waypoint" HorizontalOptions="Center"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="ID: "/>
+                        <Label Text="1"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Posision X: "/>
+                        <Label Text="{Binding _curentWP.PosX}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Posision Y: "/>
+                        <Label Text="{Binding _curentWP.PosY}"/>
+                    </StackLayout>
                 </StackLayout>
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
-            
-            <!--Command box view-->
-            <subviews:CommandBox x:Name="commandbox"
-                                 AbsoluteLayout.LayoutBounds="20, 70"/>
-            <!--Telemetry box view-->
-            <subviews:TelemetryBox x:Name="telemetrybox"
-                                   WidthRequest="150"
-                                   HeightRequest="160"
-                                   AbsoluteLayout.LayoutBounds="450, 170"
-                                   BindingContext="{Binding VehicleManagerViewModel.Vehicle}"/>
-            <AbsoluteLayout.GestureRecognizers>
-                <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"/>
-            </AbsoluteLayout.GestureRecognizers>
-        </AbsoluteLayout>
+                <Frame.Style>
+                    <Style TargetType="Frame">
+                        <Setter Property="IsVisible" Value="false"/>
+                        <Style.Triggers>
+                            <DataTrigger TargetType="Frame" Binding="{Binding IsMissionShow}" Value="true">
+                                <Setter Property="IsVisible" Value="true"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Frame.Style>
+            </Frame>
+            <Grid Grid.Row="1">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                    <Button Text="Download Mission" VerticalOptions="Center"/>
+                    <Button Text="Send Mission" VerticalOptions="Center" Margin="0,0,15,0"
+                            Command="{Binding SendMissionCommand}"/>
+                </StackLayout>
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="IsVisible" Value="false"/>
+                        <Style.Triggers>
+                            <DataTrigger TargetType="Grid" Binding="{Binding IsMissionShow}" Value="true">
+                                <Setter Property="IsVisible" Value="true"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+            </Grid>
+        </Grid>
     </ContentView.Content>
     <ContentView.Style>
         <Style TargetType="ContentView">
             <Setter Property="IsVisible" Value="false"/>
             <Style.Triggers>
-                <DataTrigger TargetType="ContentView" Binding="{Binding IsShow}" Value="true">
+                <DataTrigger TargetType="ContentView" Binding="{Binding IsMapShow}" Value="true">
                     <Setter Property="IsVisible" Value="true"/>
                 </DataTrigger>
             </Style.Triggers>

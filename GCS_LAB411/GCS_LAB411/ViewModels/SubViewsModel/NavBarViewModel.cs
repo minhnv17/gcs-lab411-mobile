@@ -10,7 +10,6 @@ namespace GCS_LAB411.ViewModels
     {
         public delegate void SelectTabDelegate(int index);
         public event SelectTabDelegate SelectTabEvent;
-        public Command AddWayPointCommand { get; set; }
         public Command ChangedViewCommand { get; set; }
         public NavBarViewModel()
         {

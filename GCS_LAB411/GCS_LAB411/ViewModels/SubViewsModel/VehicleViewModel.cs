@@ -32,6 +32,15 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
         {
         }
 
+        public void DoSendMission(Waypoint _wp)
+        {
+            if (_com != null)
+            {
+                _com.SendMissionMessage(_wp);
+            }
+            return;
+        }
+
         public void DoChangeMode(int mode)
         {
             if (_com != null)
@@ -46,6 +55,24 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             if(_com != null)
             {
                 return await _com.SendCommandTakeoff(altitude);
+            }
+            return Tuple.Create(false, "NO COMLINK, CHECK CONNECTION");
+        }
+
+        public async Task<Tuple<bool, string>> Land()
+        {
+            if (_com != null)
+            {
+                return await _com.SendCommandLand();
+            }
+            return Tuple.Create(false, "NO COMLINK, CHECK CONNECTION");
+        }
+
+        public async Task<Tuple<bool, string>> Flyto(byte allwp, int wpid)
+        {
+            if (_com != null)
+            {
+                return await _com.SendCommandFlyto(allwp, wpid);
             }
             return Tuple.Create(false, "NO COMLINK, CHECK CONNECTION");
         }

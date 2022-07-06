@@ -12,7 +12,7 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
-        <Frame>
+        <Frame BindingContext="{Binding VehicleManagerViewModel.Vehicle}">
             <StackLayout Orientation="Vertical">
                 <Frame HeightRequest="21" Padding="0">
                     <Label Text="Telemetry" TextColor="Black" FontSize="12" Style="{StaticResource lable-style}"/>
@@ -56,4 +56,14 @@
             </Frame.Style>
         </Frame>
     </ContentView.Content>
+    <ContentView.Style>
+        <Style TargetType="ContentView">
+            <Setter Property="IsVisible" Value="false"/>
+            <Style.Triggers>
+                <DataTrigger TargetType="ContentView" Binding="{Binding IsFlytabShow}" Value="true">
+                    <Setter Property="IsVisible" Value="true"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </ContentView.Style>
 </ContentView>

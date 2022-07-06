@@ -17,7 +17,6 @@ namespace GCS_LAB411.Views.SubViews
         public CommandBox()
         {
             InitializeComponent();
-            this.BindingContext = App.ServiceProvider.GetRequiredService<MapViewModel>();
         }
     }
 }

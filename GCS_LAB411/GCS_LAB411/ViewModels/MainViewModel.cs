@@ -67,18 +67,31 @@ namespace GCS_LAB411.ViewModels
         private void HandleSelectTab(int index)
         {
             SelectedTabIndex = index;
+            if(index == 2) // Mission tab
+            {
+                _mapViewModel.IsFlytabShow = false;
+                _stViewModel.IsShow = false;
+                _cameraLiveViewModel.IsSelectFlyTab = false;
+                _mapViewModel.IsMissionShow = true;
+                _mapViewModel.IsMapShow = true;
+            }
+
             if(index == 1) // Fly tab 
             {
-                _mapViewModel.IsShow = true;
+                _mapViewModel.IsFlytabShow = true;
                 _stViewModel.IsShow = false;
                 _cameraLiveViewModel.IsSelectFlyTab = true;
+                _mapViewModel.IsMissionShow = false;
+                _mapViewModel.IsMapShow = true;
             }
-            if(index == 0) // Setting tab
+            if (index == 0) // Setting tab
             {
-                _mapViewModel.IsShow = false;
+                _mapViewModel.IsFlytabShow = false;
                 _stViewModel.IsShow = true;
                 _cameraLiveViewModel.IsSelectFlyTab = false;
-            }    
+                _mapViewModel.IsMissionShow = false;
+                _mapViewModel.IsMapShow = false;
+            }
         }
 
         private void HandleConnectVehicle(GCS_Com _mycom)
