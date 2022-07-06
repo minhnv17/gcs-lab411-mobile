@@ -18,10 +18,40 @@
                                 TouchAction="OnTouchEffectAction" />
                 </Grid.Effects>
             </Grid>
+            <Frame Grid.Row="0" Padding="3" VerticalOptions="Center" HorizontalOptions="End"
+                   CornerRadius="10"
+                   Margin="10, 0">
+                <StackLayout Orientation="Vertical">
+                    <Label Text="Waypoint" HorizontalOptions="Center"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="ID: "/>
+                        <Label Text="1"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Posision X: "/>
+                        <Label Text="{Binding _curentWP.PosX}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Posision Y: "/>
+                        <Label Text="{Binding _curentWP.PosY}"/>
+                    </StackLayout>
+                </StackLayout>
+                <Frame.Style>
+                    <Style TargetType="Frame">
+                        <Setter Property="IsVisible" Value="false"/>
+                        <Style.Triggers>
+                            <DataTrigger TargetType="Frame" Binding="{Binding IsMissionShow}" Value="true">
+                                <Setter Property="IsVisible" Value="true"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Frame.Style>
+            </Frame>
             <Grid Grid.Row="1">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="End">
                     <Button Text="Download Mission" VerticalOptions="Center"/>
-                    <Button Text="Send Mission" VerticalOptions="Center" Margin="0,0,15,0"/>
+                    <Button Text="Send Mission" VerticalOptions="Center" Margin="0,0,15,0"
+                            Command="{Binding SendMissionCommand}"/>
                 </StackLayout>
                 <Grid.Style>
                     <Style TargetType="Grid">

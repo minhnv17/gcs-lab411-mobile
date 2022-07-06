@@ -18,7 +18,7 @@ namespace GCS_LAB411.Protocol.Command
             int index = 0;
 
             BitConverter.GetBytes((UInt16)CommandId.UAVLINK_CMD_SETMODE).CopyTo(data, index);
-            BitConverter.GetBytes(Mode).CopyTo(data, index += 2);
+            BitConverter.GetBytes((float)Mode).CopyTo(data, index += 2);
             _data = data;
         }
     }

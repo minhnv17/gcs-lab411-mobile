@@ -11,11 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Media\drone.png" />
     <None Remove="Media\mymap.png" />
     <None Remove="Media\waypoint.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Media\drone.png" />
     <EmbeddedResource Include="Media\mymap.png" />
     <EmbeddedResource Include="Media\waypoint.png" />
   </ItemGroup>

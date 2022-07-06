@@ -12,13 +12,14 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
     public class MapViewModel : BaseViewModel
     {
         private SlideConfirmViewModel _scViewModel;
-        public Waypoint _curentWP;
+        public Waypoint _curentWP { get; set; }
         private VehicleManagerViewModel _vhManagerViewModel;
         public VehicleManagerViewModel VehicleManagerViewModel
         {
             get => _vhManagerViewModel;
         }
         public PilotCommand AutoPilotCommand { get; set; }
+        public Command SendMissionCommand { get; set; }
         public MapViewModel(SlideConfirmViewModel scViewModel, VehicleManagerViewModel vhManagerViewModel)
         {
             _scViewModel = scViewModel;
@@ -29,6 +30,7 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             _curentWP.PosY = 0;
             _curentWP.IsComplete = false;
             AutoPilotCommand = new PilotCommand(this, scViewModel);
+            SendMissionCommand = new Command(HandleSendMission);
         }
 
         private bool _isFlytabShow = true;
@@ -57,15 +59,25 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             _vhManagerViewModel.Vehicle.DoChangeMode(mode);
         }
 
-        public async Task<Tuple<bool, string>> FlytoAction()
+        public void HandleSendMission(object obj)
+        {
+            _vhManagerViewModel.Vehicle.DoSendMission(_curentWP);
+        }
+
+        public async Task<Tuple<bool, string>> FlytoAction(byte allwp, int wpid)
         {
             
-            return await Task.FromResult(Tuple.Create(false, ""));
+            return await _vhManagerViewModel.Vehicle.Flyto(allwp, wpid);
         }
 
         public async Task<Tuple<bool, string>> Takeoff(float altitude)
         {
             return await _vhManagerViewModel.Vehicle.Takeoff(altitude);
+        }
+
+        public async Task<Tuple<bool, string>> Land()
+        {
+            return await _vhManagerViewModel.Vehicle.Land();
         }
 
         public async Task<Tuple<bool, string>> ArmDisarm()

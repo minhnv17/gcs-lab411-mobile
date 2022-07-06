@@ -1,5 +1,6 @@
 ﻿using GCS_Comunication.Protocol;
 using GCS_Comunication.Protocol.Uavlink;
+using GCS_LAB411.Models;
 using GCS_LAB411.Protocol.Command;
 using GCS_LAB411.Protocol.Uavlink;
 using System;
@@ -210,7 +211,7 @@ namespace GCS_Comunication.Comunication
             Func<Tuple<bool, string>> sendCommand = () =>
             {
                 Tuple<bool, string> resAnswers = new Tuple<bool, string>(false, null);
-                byte[] takeoff_data, message_pack;
+                byte[] takeoff_data;
 
                 Uavlink_cmd_takeoff_t takeoffcmd = new Uavlink_cmd_takeoff_t();
                 takeoffcmd.Altitude = altitude;
@@ -220,7 +221,33 @@ namespace GCS_Comunication.Comunication
                 message.Msgid = MessageId.UAVLINK_MSG_ID_COMMAND;
                 message.LenPayload = (sbyte)takeoff_data.Length;
                 message.Payload = takeoff_data;
-                message.Encode(out message_pack);
+
+                SendMessage(message);
+                resAnswers = Tuple.Create(true, "send command ok");
+                return resAnswers;
+            };
+            var task = new Task<Tuple<bool, string>>(sendCommand);
+            task.Start();
+            return task;
+        }
+
+        public Task<Tuple<bool, string>> SendCommandFlyto(byte allwp, int wpid)
+        {
+            Func<Tuple<bool, string>> sendCommand = () =>
+            {
+                Tuple<bool, string> resAnswers = new Tuple<bool, string>(false, null);
+                byte[] flyto_data;
+
+                Uavlink_cmd_flyto_t flyto_cmd = new Uavlink_cmd_flyto_t();
+                flyto_cmd.AllWP = allwp;
+                flyto_cmd.WPId = wpid;
+
+                flyto_cmd.Encode(out flyto_data);
+
+                Uavlink_message_t message = new Uavlink_message_t();
+                message.Msgid = MessageId.UAVLINK_MSG_ID_COMMAND;
+                message.LenPayload = (sbyte)flyto_data.Length;
+                message.Payload = flyto_data;
 
                 SendMessage(message);
                 resAnswers = Tuple.Create(true, "send command ok");
@@ -233,7 +260,7 @@ namespace GCS_Comunication.Comunication
 
         public void SendCommandSetMode(int mode)
         {
-            byte[] setmode_data, message_pack;
+            byte[] setmode_data;
 
             Uavlink_cmd_setmode_t setmodeCmd = new Uavlink_cmd_setmode_t();
             setmodeCmd.Mode = (byte)mode;
@@ -243,7 +270,6 @@ namespace GCS_Comunication.Comunication
             message.Msgid = MessageId.UAVLINK_MSG_ID_COMMAND;
             message.LenPayload = (sbyte)setmode_data.Length;
             message.Payload = setmode_data;
-            message.Encode(out message_pack);
 
             SendMessage(message);
         }
@@ -253,7 +279,6 @@ namespace GCS_Comunication.Comunication
             Func<Tuple<bool, string>> sendCommand = () =>
             {
                 Tuple<bool, string> resAnswers = new Tuple<bool, string>(false, null);
-                byte[] message_pack;
                 byte[] data = new byte[3];
                 BitConverter.GetBytes((UInt16)CommandId.UAVLINK_CMD_ARM).CopyTo(data, 0);
                 data[2] = armdisarm;
@@ -262,7 +287,6 @@ namespace GCS_Comunication.Comunication
                 message.Msgid = MessageId.UAVLINK_MSG_ID_COMMAND;
                 message.LenPayload = 3;
                 message.Payload = data;
-                message.Encode(out message_pack);
                 SendMessage(message);
                 resAnswers = Tuple.Create(true, "send command ok");
                 return resAnswers;
@@ -272,17 +296,47 @@ namespace GCS_Comunication.Comunication
             return task;
         }
 
-        public void SendCommandLand()
+        public Task<Tuple<bool, string>> SendCommandLand()
         {
-            byte[] message_pack;
+            Func<Tuple<bool, string>> sendCommand = () =>
+            {
+                Tuple<bool, string> resAnswers = new Tuple<bool, string>(false, null);
+                Uavlink_message_t message = new Uavlink_message_t();
+                message.Msgid = MessageId.UAVLINK_MSG_ID_COMMAND;
+                message.LenPayload = 2;
+                message.Payload = BitConverter.GetBytes((UInt16)CommandId.UAVLINK_CMD_LAND);
+                SendMessage(message);
 
-            Uavlink_message_t message = new Uavlink_message_t();
-            message.Msgid = MessageId.UAVLINK_MSG_ID_COMMAND;
-            message.LenPayload = 2;
-            message.Payload = BitConverter.GetBytes((UInt16)CommandId.UAVLINK_CMD_LAND);
-            message.Encode(out message_pack);
+                resAnswers = Tuple.Create(true, "send command ok");
+                return resAnswers;
+            };
+            var task = new Task<Tuple<bool, string>>(sendCommand);
+            task.Start();
+            return task;
+        }
 
-            SendMessage(message);
+        public void SendMissionMessage(Waypoint _wp)
+        {
+            if(_wp != null)
+            {
+                byte[] wp_data;
+
+                Uavlink_msg_setwp_t wp_message = new Uavlink_msg_setwp_t();
+                wp_message.WaypointID = _wp.WaypointID;
+                wp_message.TargetX = _wp.PosX;
+                wp_message.TargetY = _wp.PosY;
+                wp_message.TargetZ = 1;
+                wp_message.Encode(out wp_data);
+
+                Uavlink_message_t message = new Uavlink_message_t();
+                message.Msgid = MessageId.UAVLINK_MSG_SETWP;
+                message.LenPayload = (sbyte)wp_data.Length;
+                message.Payload = wp_data;
+
+                SendMessage(message);
+                return;
+            }
+            return;
         }
 
         private void HandleSendManualControl()

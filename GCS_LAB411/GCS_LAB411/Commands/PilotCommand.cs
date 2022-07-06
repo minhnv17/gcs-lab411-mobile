@@ -65,6 +65,7 @@ namespace GCS_LAB411.Commands
                     {
                         case "DoFlyTo":
                             Console.WriteLine("DoFlyTo");
+                            answer = await (_parent as MapViewModel).FlytoAction(1, 0);
                             break;
 
                         case "DoTakeOff":
@@ -76,6 +77,7 @@ namespace GCS_LAB411.Commands
 
                         case "DoRTL":
                             Console.WriteLine("RTL");
+                            answer = await (_parent as MapViewModel).Land();
                             break;
 
                         case "DoLand":
