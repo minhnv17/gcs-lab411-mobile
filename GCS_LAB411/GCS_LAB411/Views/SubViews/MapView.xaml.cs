@@ -27,6 +27,7 @@ namespace GCS_LAB411.Views.SubViews
             new Dictionary<long, TouchManipulationBitmap>();
 
         MapViewModel _mapViewModel;
+        SKBitmap mapBitmap;
         SKPoint previ_p, cur_p, waypoint, drone_pos;
         public MapView()
         {
@@ -129,43 +130,37 @@ namespace GCS_LAB411.Views.SubViews
 
             using (Stream stream = assembly.GetManifestResourceStream("GCS_LAB411.Media.map.png"))
             {
-                SKBitmap mapBitmap = SKBitmap.Decode(stream);
+                mapBitmap = SKBitmap.Decode(stream);
                 canvas.DrawBitmap(mapBitmap, 0, 0);
             }
 
             using (Stream stream = assembly.GetManifestResourceStream("GCS_LAB411.Media.drone.png"))
             {
-                SKBitmap mapBitmap = SKBitmap.Decode(stream);
-                canvas.DrawBitmap(mapBitmap, drone_pos.X, drone_pos.Y);
+                SKBitmap droneBitmap = SKBitmap.Decode(stream);
+                canvas.DrawBitmap(droneBitmap, drone_pos.X, drone_pos.Y);
             }
 
             foreach (TouchManipulationBitmap bitmap in bitmapCollection)
             {
                 bitmap.Paint(canvas);
-                // draw centered text, stroked
-                using (var paint = new SKPaint())
-                {
-                    paint.TextSize = 12.0f;
-                    paint.IsAntialias = true;
-                    paint.Color = new SKColor(0x9C, 0xAF, 0xB7);
-                    paint.TextAlign = SKTextAlign.Center;
-
-                    canvas.DrawText("ID: 1", waypoint.X + 60, waypoint.Y + 60, paint);
-                }
             }
         }
 
         float TransformArucoMapX(float value)
         {
             float result;
-            result = value / 1000f * 4;
+            result = value / mapBitmap.Width * 4;
+            if (result >= 4) return 4f;
+            if (result <= 0) return 0f;
             return result;
         }
 
         float TransformArucoMapY(float value)
         {
             float result;
-            result = value / 600f * 4;
+            result = value / mapBitmap.Height * 4;
+            if (result >= 4f) return 4f;
+            if (result <= 0f) return 0f;
             return result;
         }
     }
