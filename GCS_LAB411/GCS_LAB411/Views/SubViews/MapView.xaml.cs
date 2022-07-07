@@ -59,6 +59,7 @@ namespace GCS_LAB411.Views.SubViews
             {
                 drone_pos.X = _mapViewModel.VehicleManagerViewModel.Vehicle.TelemetryMSG.PositionX * 1000f / 4;
                 drone_pos.Y = _mapViewModel.VehicleManagerViewModel.Vehicle.TelemetryMSG.PositionY * 600f / 4;
+                mapBitmap?.Dispose();
                 canvasView.InvalidateSurface();
                 return true;
             });
