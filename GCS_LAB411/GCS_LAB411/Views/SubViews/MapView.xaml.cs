@@ -111,8 +111,8 @@ namespace GCS_LAB411.Views.SubViews
                         TouchManipulationBitmap bitmap = bitmapDictionary[args.Id];
                         bitmap.ProcessTouchEvent(args.Id, args.Type, point);
                         waypoint += cur_p - previ_p;
-                        _mapViewModel._curentWP.PosX = TransformArucoMapX(waypoint.X + 32);
-                        _mapViewModel._curentWP.PosY = TransformArucoMapY(waypoint.Y + 64);
+                        _mapViewModel._curentWP.PosX = TransformArucoMapX(waypoint.X + 32f);
+                        _mapViewModel._curentWP.PosY = TransformArucoMapY(waypoint.Y + 64f);
                         bitmapDictionary.Remove(args.Id);
                         canvasView.InvalidateSurface();
                     }
