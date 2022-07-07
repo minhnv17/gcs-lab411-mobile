@@ -153,6 +153,7 @@ namespace GCS_Comunication.Comunication
             _connect?.DoDisconnect();
             _connect = null;
 
+            _linkedTimer1Hz?.Dispose();
             //kill thread
 
             _parsingThread?.Abort();
