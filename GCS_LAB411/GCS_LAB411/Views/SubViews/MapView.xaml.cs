@@ -42,7 +42,7 @@ namespace GCS_LAB411.Views.SubViews
                 if (resourceID.EndsWith(".png") ||
                     resourceID.EndsWith(".jpg"))
                 {
-                    if(resourceID != "GCS_LAB411.Media.mymap.png"
+                    if(resourceID != "GCS_LAB411.Media.map.png"
                         && resourceID != "GCS_LAB411.Media.drone.png")
                     {
                         using (Stream stream = assembly.GetManifestResourceStream(resourceID))
@@ -57,7 +57,7 @@ namespace GCS_LAB411.Views.SubViews
             Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
             {
                 drone_pos.X = _mapViewModel.VehicleManagerViewModel.Vehicle.TelemetryMSG.PositionX * 1000f / 4;
-                drone_pos.Y = _mapViewModel.VehicleManagerViewModel.Vehicle.TelemetryMSG.PositionY * 500f / 4;
+                drone_pos.Y = _mapViewModel.VehicleManagerViewModel.Vehicle.TelemetryMSG.PositionY * 600f / 4;
                 canvasView.InvalidateSurface();
                 return true;
             });
@@ -110,8 +110,8 @@ namespace GCS_LAB411.Views.SubViews
                         TouchManipulationBitmap bitmap = bitmapDictionary[args.Id];
                         bitmap.ProcessTouchEvent(args.Id, args.Type, point);
                         waypoint += cur_p - previ_p;
-                        _mapViewModel._curentWP.PosX = TransformArucoMapX(waypoint.X);
-                        _mapViewModel._curentWP.PosY = TransformArucoMapY(waypoint.Y);
+                        _mapViewModel._curentWP.PosX = TransformArucoMapX(waypoint.X + 32);
+                        _mapViewModel._curentWP.PosY = TransformArucoMapY(waypoint.Y + 64);
                         bitmapDictionary.Remove(args.Id);
                         canvasView.InvalidateSurface();
                     }
@@ -125,15 +125,12 @@ namespace GCS_LAB411.Views.SubViews
             SKCanvas canvas = args.Surface.Canvas;
             canvas.Clear();
 
-            string resourceID = "GCS_LAB411.Media.mymap.png";
             Assembly assembly = GetType().GetTypeInfo().Assembly;
 
-            using (Stream stream = assembly.GetManifestResourceStream(resourceID))
+            using (Stream stream = assembly.GetManifestResourceStream("GCS_LAB411.Media.map.png"))
             {
                 SKBitmap mapBitmap = SKBitmap.Decode(stream);
-                float x2 = (info.Width - mapBitmap.Width) / 2;
-                float y2 = (info.Height - mapBitmap.Height) / 2;
-                canvas.DrawBitmap(mapBitmap, x2, y2);
+                canvas.DrawBitmap(mapBitmap, 0, 0);
             }
 
             using (Stream stream = assembly.GetManifestResourceStream("GCS_LAB411.Media.drone.png"))
@@ -145,6 +142,16 @@ namespace GCS_LAB411.Views.SubViews
             foreach (TouchManipulationBitmap bitmap in bitmapCollection)
             {
                 bitmap.Paint(canvas);
+                // draw centered text, stroked
+                using (var paint = new SKPaint())
+                {
+                    paint.TextSize = 12.0f;
+                    paint.IsAntialias = true;
+                    paint.Color = new SKColor(0x9C, 0xAF, 0xB7);
+                    paint.TextAlign = SKTextAlign.Center;
+
+                    canvas.DrawText("ID: 1", waypoint.X + 60, waypoint.Y + 60, paint);
+                }
             }
         }
 
@@ -158,7 +165,7 @@ namespace GCS_LAB411.Views.SubViews
         float TransformArucoMapY(float value)
         {
             float result;
-            result = value / 500f * 4;
+            result = value / 600f * 4;
             return result;
         }
     }

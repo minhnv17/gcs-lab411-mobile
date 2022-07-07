@@ -6,11 +6,7 @@
              x:Class="GCS_LAB411.Views.SubViews.MapView">
     <ContentView.Content>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="40"/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
+            <Grid>
                 <skia:SKCanvasView x:Name="canvasView"
                                PaintSurface="OnCanvasViewPaintSurface" />
                 <Grid.Effects>
@@ -18,7 +14,7 @@
                                 TouchAction="OnTouchEffectAction" />
                 </Grid.Effects>
             </Grid>
-            <Frame Grid.Row="0" Padding="3" VerticalOptions="Center" HorizontalOptions="End"
+            <Frame Padding="3" VerticalOptions="Center" HorizontalOptions="End"
                    CornerRadius="10"
                    Margin="10, 0">
                 <StackLayout Orientation="Vertical">
@@ -47,9 +43,9 @@
                     </Style>
                 </Frame.Style>
             </Frame>
-            <Grid Grid.Row="1">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="End">
-                    <Button Text="Download Mission" VerticalOptions="Center"/>
+            <Grid HorizontalOptions="End" VerticalOptions="End">
+                <StackLayout Orientation="Horizontal">
+                    <!--<Button Text="Download Mission" VerticalOptions="Center"/>-->
                     <Button Text="Send Mission" VerticalOptions="Center" Margin="0,0,15,0"
                             Command="{Binding SendMissionCommand}"/>
                 </StackLayout>
