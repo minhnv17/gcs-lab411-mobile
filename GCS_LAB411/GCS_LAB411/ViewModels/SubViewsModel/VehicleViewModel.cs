@@ -98,7 +98,10 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
         {
             TelemetryMSG.Arm = message.Armed == 0 ? false : true;
             TelemetryMSG.Connected = message.Connected == 0 ? false : true;
-            TelemetryMSG.CurrentMode = TelemetryMSG.Mode[message.Mode];
+            if(message.Mode != -1 && message.Mode < 4)
+            {
+                TelemetryMSG.CurrentMode = TelemetryMSG.Mode[message.Mode];
+            }
             TelemetryMSG.Battery = message.Battery;
         }
 
