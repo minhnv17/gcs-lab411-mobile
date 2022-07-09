@@ -24,7 +24,7 @@
         <subviews:CommandBox x:Name="commandbox" BindingContext="{Binding MapViewModel}"
                              VerticalOptions="Start"
                              HorizontalOptions="Start"
-                             Margin="10,60,0,0"/>
+                             Margin="10,80,0,0"/>
         
         <!--Telemetry box view-->
         <subviews:TelemetryBox x:Name="telemetrybox"
@@ -36,7 +36,8 @@
                                BindingContext="{Binding MapViewModel}"/>
 
         <!--Slide Confirm-->
-        <subviews:SlideConfirm Margin="200,260,200,30"></subviews:SlideConfirm>
+        <subviews:SlideConfirm HorizontalOptions="Center" 
+                               VerticalOptions="End" Margin="0, 20"/>
     </Grid>
 
 </ContentPage>
