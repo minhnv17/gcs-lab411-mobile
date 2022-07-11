@@ -65,7 +65,7 @@ namespace GCS_LAB411.Commands
                     {
                         case "DoFlyTo":
                             Console.WriteLine("DoFlyTo");
-                            answer = await (_parent as MapViewModel).FlytoAction(1, 0);
+                            answer = await (_parent as MapViewModel).FlytoAction(1, 0, 0);
                             break;
 
                         case "DoTakeOff":
