@@ -18,8 +18,8 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Media\drone.png" />
-    <EmbeddedResource Include="Media\map.png" />
     <EmbeddedResource Include="Media\marker.png" />
+    <EmbeddedResource Include="Media\map.png" />
   </ItemGroup>
 
   <ItemGroup>

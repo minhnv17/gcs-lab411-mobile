@@ -27,7 +27,7 @@ namespace GCS_LAB411.Views.SubViews
             new Dictionary<long, TouchManipulationBitmap>();
 
         MapViewModel _mapViewModel;
-        SKBitmap mapBitmap;
+        SKBitmap mapBitmap, droneBitmap;
         SKPoint previ_p, cur_p, waypoint, drone_pos;
         public MapView()
         {
@@ -57,9 +57,8 @@ namespace GCS_LAB411.Views.SubViews
 
             Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
             {
-                drone_pos.X = _mapViewModel.VehicleManagerViewModel.Vehicle.TelemetryMSG.PositionX * 1000f / 4;
-                drone_pos.Y = _mapViewModel.VehicleManagerViewModel.Vehicle.TelemetryMSG.PositionY * 600f / 4;
-                mapBitmap?.Dispose();
+                drone_pos.X = _mapViewModel.VehicleManagerViewModel.Vehicle.TelemetryMSG.PositionX * mapBitmap.Width / 4;
+                drone_pos.Y = _mapViewModel.VehicleManagerViewModel.Vehicle.TelemetryMSG.PositionY * mapBitmap.Height / 4;
                 canvasView.InvalidateSurface();
                 return true;
             });
@@ -126,6 +125,8 @@ namespace GCS_LAB411.Views.SubViews
             SKImageInfo info = args.Info;
             SKCanvas canvas = args.Surface.Canvas;
             canvas.Clear();
+            mapBitmap?.Dispose();
+            droneBitmap?.Dispose();
 
             Assembly assembly = GetType().GetTypeInfo().Assembly;
 
@@ -137,7 +138,7 @@ namespace GCS_LAB411.Views.SubViews
 
             using (Stream stream = assembly.GetManifestResourceStream("GCS_LAB411.Media.drone.png"))
             {
-                SKBitmap droneBitmap = SKBitmap.Decode(stream);
+                droneBitmap = SKBitmap.Decode(stream);
                 canvas.DrawBitmap(droneBitmap, drone_pos.X, drone_pos.Y);
             }
 
