@@ -57,8 +57,11 @@ namespace GCS_LAB411.Views.SubViews
 
             Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
             {
-                drone_pos.X = _mapViewModel.VehicleManagerViewModel.Vehicle.TelemetryMSG.PositionX * mapBitmap.Width / 4;
-                drone_pos.Y = _mapViewModel.VehicleManagerViewModel.Vehicle.TelemetryMSG.PositionY * mapBitmap.Height / 4;
+                if(mapBitmap!=null)
+                {
+                    drone_pos.X = _mapViewModel.VehicleManagerViewModel.Vehicle.TelemetryMSG.PositionX * mapBitmap.Width / 4;
+                    drone_pos.Y = _mapViewModel.VehicleManagerViewModel.Vehicle.TelemetryMSG.PositionY * mapBitmap.Height / 4;
+                }
                 canvasView.InvalidateSurface();
                 return true;
             });
