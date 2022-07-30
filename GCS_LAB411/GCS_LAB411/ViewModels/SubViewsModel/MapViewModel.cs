@@ -64,10 +64,10 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             _vhManagerViewModel.Vehicle.DoSendMission(_curentWP);
         }
 
-        public async Task<Tuple<bool, string>> FlytoAction(byte allwp, int wpid)
+        public async Task<Tuple<bool, string>> FlytoAction(byte allwp, int wpid, int type)
         {
             
-            return await _vhManagerViewModel.Vehicle.Flyto(allwp, wpid);
+            return await _vhManagerViewModel.Vehicle.Flyto(allwp, wpid, type);
         }
 
         public async Task<Tuple<bool, string>> Takeoff(float altitude)

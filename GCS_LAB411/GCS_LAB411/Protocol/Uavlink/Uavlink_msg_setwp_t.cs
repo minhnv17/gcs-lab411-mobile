@@ -6,7 +6,8 @@ namespace GCS_LAB411.Protocol.Uavlink
 {
     public class Uavlink_msg_setwp_t
     {
-        private static int LENGTH = 16;
+        private static int LENGTH = 18;
+        public UInt16 Type;
         public int WaypointID;
         public float TargetX;
         public float TargetY;
@@ -14,6 +15,7 @@ namespace GCS_LAB411.Protocol.Uavlink
 
         public Uavlink_msg_setwp_t()
         {
+            Type = 0;
             WaypointID = 0;
             TargetX = 0;
             TargetY = 0;
@@ -25,7 +27,8 @@ namespace GCS_LAB411.Protocol.Uavlink
             byte[] data = new byte[LENGTH];
             int index = 0;
 
-            BitConverter.GetBytes(WaypointID).CopyTo(data, index);
+            BitConverter.GetBytes(Type).CopyTo(data, index);
+            BitConverter.GetBytes(WaypointID).CopyTo(data, index += 2);
             BitConverter.GetBytes(TargetX).CopyTo(data, index += 4);
             BitConverter.GetBytes(TargetY).CopyTo(data, index += 4);
             BitConverter.GetBytes(TargetZ).CopyTo(data, index += 4);

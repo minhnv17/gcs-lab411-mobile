@@ -68,11 +68,11 @@ namespace GCS_LAB411.ViewModels.SubViewsModel
             return Tuple.Create(false, "NO COMLINK, CHECK CONNECTION");
         }
 
-        public async Task<Tuple<bool, string>> Flyto(byte allwp, int wpid)
+        public async Task<Tuple<bool, string>> Flyto(byte allwp, int wpid, int type)
         {
             if (_com != null)
             {
-                return await _com.SendCommandFlyto(allwp, wpid);
+                return await _com.SendCommandFlyto(allwp, wpid, type);
             }
             return Tuple.Create(false, "NO COMLINK, CHECK CONNECTION");
         }

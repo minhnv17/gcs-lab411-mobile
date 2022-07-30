@@ -232,7 +232,7 @@ namespace GCS_Comunication.Comunication
             return task;
         }
 
-        public Task<Tuple<bool, string>> SendCommandFlyto(byte allwp, int wpid)
+        public Task<Tuple<bool, string>> SendCommandFlyto(byte allwp, int wpid, int type)
         {
             Func<Tuple<bool, string>> sendCommand = () =>
             {
@@ -242,6 +242,7 @@ namespace GCS_Comunication.Comunication
                 Uavlink_cmd_flyto_t flyto_cmd = new Uavlink_cmd_flyto_t();
                 flyto_cmd.AllWP = allwp;
                 flyto_cmd.WPId = wpid;
+                flyto_cmd.Type = type;
 
                 flyto_cmd.Encode(out flyto_data);
 
@@ -323,10 +324,11 @@ namespace GCS_Comunication.Comunication
                 byte[] wp_data;
 
                 Uavlink_msg_setwp_t wp_message = new Uavlink_msg_setwp_t();
+                wp_message.Type = 0;
                 wp_message.WaypointID = _wp.WaypointID;
                 wp_message.TargetX = _wp.PosX;
                 wp_message.TargetY = _wp.PosY;
-                wp_message.TargetZ = 1;
+                wp_message.TargetZ = 1.5f;
                 wp_message.Encode(out wp_data);
 
                 Uavlink_message_t message = new Uavlink_message_t();
